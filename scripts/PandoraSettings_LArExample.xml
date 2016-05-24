@@ -1,0 +1,43 @@
+<!-- Pandora settings xml file -->
+
+<pandora>
+    <!-- GLOBAL SETTINGS -->
+    <IsMonitoringEnabled>true</IsMonitoringEnabled>
+    <ShouldDisplayAlgorithmInfo>true</ShouldDisplayAlgorithmInfo>
+    <SingleHitTypeClusteringMode>true</SingleHitTypeClusteringMode>
+
+    <!-- PLUGIN SETTINGS -->
+    <MuonPlugin>LArMuonId</MuonPlugin>
+
+    <!-- ALGORITHM SETTINGS -->
+    <algorithm type = "LArEventReading">
+        <EventFileName>/usera/marshall/Pandora_Events.pndr</EventFileName>
+        <GeometryFileName>/r05/dune/mcproduction_v05_08_00/geometry_uboone/Geometry_MicroBooNE.pndr</GeometryFileName>
+        <ShouldReadEvents>true</ShouldReadEvents>
+        <ShouldReadGeometry>true</ShouldReadGeometry>
+        <SkipToEvent>10</SkipToEvent>
+    </algorithm>
+
+    <!-- NEUTRINO-INDUCED EVENT RECONSTRUCTION -->
+    <algorithm type = "LArListPreparation">
+        <OnlyAvailableCaloHits>true</OnlyAvailableCaloHits>
+        <OutputCaloHitListNameW>CaloHitListW</OutputCaloHitListNameW>
+        <OutputCaloHitListNameU>CaloHitListU</OutputCaloHitListNameU>
+        <OutputCaloHitListNameV>CaloHitListV</OutputCaloHitListNameV>
+        <FilteredCaloHitListName>CaloHitList2D</FilteredCaloHitListName>
+        <CurrentCaloHitListReplacement>CaloHitList2D</CurrentCaloHitListReplacement>
+        <OutputMCParticleListNameU>MCParticleListU</OutputMCParticleListNameU>
+        <OutputMCParticleListNameV>MCParticleListV</OutputMCParticleListNameV>
+        <OutputMCParticleListNameW>MCParticleListW</OutputMCParticleListNameW>
+        <OutputMCParticleListName3D>MCParticleList3D</OutputMCParticleListName3D>
+        <CurrentMCParticleListReplacement>MCParticleList3D</CurrentMCParticleListReplacement>
+        <MipEquivalentCut>0.</MipEquivalentCut>
+    </algorithm>
+
+    <algorithm type = "LArVisualMonitoring">
+        <CaloHitListNames>CaloHitListW CaloHitListU CaloHitListV</CaloHitListNames>
+        <MCParticleListNames>MCParticleList3D</MCParticleListNames>
+        <SuppressMCParticles>22:0.01 2112:1.0</SuppressMCParticles>
+        <ShowDetector>true</ShowDetector>
+    </algorithm>
+</pandora>
