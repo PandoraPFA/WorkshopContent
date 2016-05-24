@@ -10,7 +10,7 @@
 
 #include "Pandora/Algorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -42,6 +42,6 @@ inline pandora::Algorithm *AccessListsAlgorithm::Factory::CreateAlgorithm() cons
     return new AccessListsAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef ACCESS_LISTS_ALGORITHM_H

@@ -8,11 +8,11 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExampleAlgorithmTools/ExampleAlgorithmTool.h"
+#include "larexamplecontent/ExampleAlgorithmTools/ExampleAlgorithmTool.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 void ExampleAlgorithmTool::ExampleToolFunctionality(const unsigned int /*exampleInt*/, const pandora::FloatVector &/*exampleFloatVector*/)
@@ -33,4 +33,4 @@ StatusCode ExampleAlgorithmTool::ReadSettings(const TiXmlHandle /*xmlHandle*/)
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content

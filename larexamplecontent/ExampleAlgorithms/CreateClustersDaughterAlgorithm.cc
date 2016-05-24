@@ -8,13 +8,13 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExampleAlgorithms/CreateClustersDaughterAlgorithm.h"
+#include "larexamplecontent/ExampleAlgorithms/CreateClustersDaughterAlgorithm.h"
 
-#include "ExampleHelpers/ExampleHelper.h"
+#include "larexamplecontent/ExampleHelpers/ExampleHelper.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 CreateClustersDaughterAlgorithm::CreateClustersDaughterAlgorithm() :
@@ -27,13 +27,13 @@ CreateClustersDaughterAlgorithm::CreateClustersDaughterAlgorithm() :
 StatusCode CreateClustersDaughterAlgorithm::Run()
 {
     // Create clusters using calo hits in the current list as the building blocks.
-    const CaloHitList *pCaloHitList(NULL);
+    const CaloHitList *pCaloHitList(nullptr);
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::GetCurrentList(*this, pCaloHitList));
 
     // This algorithm demonstrates cluster creation in the context of running a daughter algorithm, with newly clusters being placed
     // in the temporary cluster list owned by the calling parent algorithm. It is the responsibility of the parent algorithm to save
     // the clusters, which will otherwise be deleted when the parent algorithm ends.
-    const ClusterList *pCurrentClusterList(NULL);
+    const ClusterList *pCurrentClusterList(nullptr);
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::GetCurrentList(*this, pCurrentClusterList));
 
     // This will be a temporary cluster list and will be empty immediately after calling the daughter clustering algorithm.
@@ -42,10 +42,8 @@ StatusCode CreateClustersDaughterAlgorithm::Run()
 
     // Here we use the first m_nClustersToMake hits in the unordered calo hit list to seed new clusters. Subsequent hits are then
     // added to the closest seed cluster, based on a simple (rather than efficient) closest-hits calculation in the example helper.
-    for (CaloHitList::const_iterator iter = pCaloHitList->begin(), iterEnd = pCaloHitList->end(); iter != iterEnd; ++iter)
+    for (const CaloHit *const pCaloHit : *pCaloHitList)
     {
-        const CaloHit *const pCaloHit(*iter);
-
         // Once a calo hit has been added to a cluster, it is flagged as unavailable.
         if (!PandoraContentApi::IsAvailable(*this, pCaloHit))
             continue;
@@ -57,7 +55,7 @@ StatusCode CreateClustersDaughterAlgorithm::Run()
         }
         else
         {
-            const Cluster *pCluster(NULL);
+            const Cluster *pCluster(nullptr);
             PandoraContentApi::Cluster::Parameters parameters;
             parameters.m_caloHitList.insert(pCaloHit);
             PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::Cluster::Create(*this, parameters, pCluster));
@@ -80,4 +78,4 @@ StatusCode CreateClustersDaughterAlgorithm::ReadSettings(const TiXmlHandle xmlHa
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content

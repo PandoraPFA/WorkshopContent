@@ -10,7 +10,7 @@
 
 #include "Pandora/Algorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -48,6 +48,6 @@ inline pandora::Algorithm *SelectHitSubsetAlgorithm::Factory::CreateAlgorithm() 
     return new SelectHitSubsetAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef SELECT_HIT_SUBSET_ALGORITHM_H

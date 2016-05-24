@@ -10,7 +10,7 @@
 
 #include "Pandora/Algorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -42,6 +42,6 @@ inline pandora::Algorithm *CreateVerticesAlgorithm::Factory::CreateAlgorithm() c
     return new CreateVerticesAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef CREATE_VERTICES_ALGORITHM_H

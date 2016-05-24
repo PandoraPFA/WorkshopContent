@@ -10,7 +10,7 @@
 
 #include "Pandora/Algorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -48,6 +48,6 @@ inline pandora::Algorithm *WriteTreeAlgorithm::Factory::CreateAlgorithm() const
     return new WriteTreeAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef WRITE_TREE_ALGORITHM_H

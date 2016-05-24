@@ -11,7 +11,7 @@
 #include "Pandora/Algorithm.h"
 #include "Pandora/AlgorithmTool.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -70,6 +70,6 @@ inline pandora::Algorithm *UseAlgorithmToolAlgorithm::Factory::CreateAlgorithm()
     return new UseAlgorithmToolAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef USE_ALGORITHM_TOOL_ALGORITHM_H

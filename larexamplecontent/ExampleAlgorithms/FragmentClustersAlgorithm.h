@@ -10,7 +10,7 @@
 
 #include "Pandora/Algorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -54,6 +54,6 @@ inline pandora::Algorithm *FragmentClustersAlgorithm::Factory::CreateAlgorithm()
     return new FragmentClustersAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef FRAGMENT_CLUSTERS_ALGORITHM_H

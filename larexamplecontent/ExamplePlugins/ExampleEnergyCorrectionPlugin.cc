@@ -8,11 +8,11 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExamplePlugins/ExampleEnergyCorrectionPlugin.h"
+#include "larexamplecontent/ExamplePlugins/ExampleEnergyCorrectionPlugin.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 ExampleEnergyCorrectionPlugin::ExampleEnergyCorrectionPlugin() :
@@ -44,4 +44,4 @@ StatusCode ExampleEnergyCorrectionPlugin::ReadSettings(const TiXmlHandle xmlHand
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content

@@ -10,7 +10,7 @@
 
 #include "Pandora/PandoraInputTypes.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -53,6 +53,6 @@ public:
     static const pandora::Vertex *FindClosestVertex(const pandora::Cluster *const pCluster, const pandora::VertexList *const pVertexListList, const float maxDistance);
 };
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef EXAMPLE_HELPER_H

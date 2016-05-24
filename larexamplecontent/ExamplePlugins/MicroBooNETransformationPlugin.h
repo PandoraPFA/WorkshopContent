@@ -10,7 +10,7 @@
 
 #include "larpandoracontent/LArPlugins/LArRotationalTransformationPlugin.h"
 
-namespace lar_example
+namespace lar_example_content
 {
 
 /**
@@ -25,6 +25,6 @@ public:
     MicroBooNETransformationPlugin();
 };
 
-} // namespace lar_example
+} // namespace lar_example_content
 
 #endif // #ifndef EXAMPLE_UBOONE_TRANSFORMATION_PLUGIN_H

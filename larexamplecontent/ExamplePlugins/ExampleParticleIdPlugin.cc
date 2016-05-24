@@ -8,11 +8,11 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExamplePlugins/ExampleParticleIdPlugin.h"
+#include "larexamplecontent/ExamplePlugins/ExampleParticleIdPlugin.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 ExampleParticleIdPlugin::ExampleParticleIdPlugin() :
@@ -41,4 +41,4 @@ StatusCode ExampleParticleIdPlugin::ReadSettings(const TiXmlHandle xmlHandle)
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content

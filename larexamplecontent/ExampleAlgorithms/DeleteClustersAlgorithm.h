@@ -10,7 +10,7 @@
 
 #include "Pandora/Algorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -47,6 +47,6 @@ inline pandora::Algorithm *DeleteClustersAlgorithm::Factory::CreateAlgorithm() c
     return new DeleteClustersAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef DELETE_CLUSTERS_ALGORITHM_H

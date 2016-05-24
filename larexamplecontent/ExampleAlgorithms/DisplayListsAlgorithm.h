@@ -10,7 +10,7 @@
 
 #include "Pandora/Algorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -52,6 +52,6 @@ inline pandora::Algorithm *DisplayListsAlgorithm::Factory::CreateAlgorithm() con
     return new DisplayListsAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef DISPLAY_LISTS_ALGORITHM_H

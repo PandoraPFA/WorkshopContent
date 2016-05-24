@@ -8,13 +8,13 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExampleAlgorithms/CreateAdditionalCaloHitsAlgorithm.h"
+#include "larexamplecontent/ExampleAlgorithms/CreateAdditionalCaloHitsAlgorithm.h"
 
-#include "ExampleObjects/ExampleCaloHit.h"
+#include "larexamplecontent/ExampleObjects/ExampleCaloHit.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 CreateAdditionalCaloHitsAlgorithm::CreateAdditionalCaloHitsAlgorithm() :
@@ -71,7 +71,7 @@ StatusCode CreateAdditionalCaloHitsAlgorithm::Run()
         parameters.m_isInOuterSamplingLayer = false;
         parameters.m_pParentAddress = (void*)(static_cast<uintptr_t>(iHit));
 
-        const CaloHit *pCaloHit(NULL);
+        const CaloHit *pCaloHit(nullptr);
         PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::CaloHit::Create(*this, parameters, pCaloHit, exampleCaloHitFactory));
     }
 
@@ -102,4 +102,4 @@ StatusCode CreateAdditionalCaloHitsAlgorithm::ReadSettings(const TiXmlHandle xml
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content

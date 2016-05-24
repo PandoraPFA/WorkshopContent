@@ -10,7 +10,7 @@
 
 #include "Pandora/Algorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -42,6 +42,6 @@ inline pandora::Algorithm *CreatePfosAlgorithm::Factory::CreateAlgorithm() const
     return new CreatePfosAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef CREATE_PFOS_ALGORITHM_H

@@ -8,35 +8,33 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExampleAlgorithms/CreatePfosAlgorithm.h"
+#include "larexamplecontent/ExampleAlgorithms/CreatePfosAlgorithm.h"
 
-#include "ExampleHelpers/ExampleHelper.h"
+#include "larexamplecontent/ExampleHelpers/ExampleHelper.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 StatusCode CreatePfosAlgorithm::Run()
 {
     // Create clusters using clusters and vertices in the current list as the building blocks.
-    const ClusterList *pClusterList(NULL);
+    const ClusterList *pClusterList(nullptr);
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::GetCurrentList(*this, pClusterList));
 
-    const VertexList *pVertexList(NULL);
+    const VertexList *pVertexList(nullptr);
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::GetCurrentList(*this, pVertexList));
 
     // Algorithms must either create a temporary list for newly created pfos. Any pfos remaining in a temporary list at the end
     // of the algorithm will be deleted, so all desired pfos must be saved before the algorithm ends.
-    const PfoList *pTemporaryList(NULL);
+    const PfoList *pTemporaryList(nullptr);
     std::string temporaryListName;
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::CreateTemporaryListAndSetCurrent(*this, pTemporaryList, temporaryListName));
 
     // Here we simply create one pfo per cluster in the current list, adding also the closest available vertex in the current list.
-    for (ClusterList::const_iterator iter = pClusterList->begin(), iterEnd = pClusterList->end(); iter != iterEnd; ++iter)
+    for (const Cluster *const pCluster : *pClusterList)
     {
-        const Cluster *const pCluster(*iter);
-
         // Once a cluster has been added to a pfo, it is flagged as unavailable.
         if (!PandoraContentApi::IsAvailable(*this, pCluster))
             continue;
@@ -62,7 +60,7 @@ StatusCode CreatePfosAlgorithm::Run()
         {
         }
 
-        const Pfo *pPfo(NULL);
+        const Pfo *pPfo(nullptr);
         PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::ParticleFlowObject::Create(*this, parameters, pPfo));
     }
 
@@ -86,4 +84,4 @@ StatusCode CreatePfosAlgorithm::ReadSettings(const TiXmlHandle xmlHandle)
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content

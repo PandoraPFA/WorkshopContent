@@ -8,11 +8,11 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExampleAlgorithms/UseAlgorithmToolAlgorithm.h"
+#include "larexamplecontent/ExampleAlgorithms/UseAlgorithmToolAlgorithm.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 UseAlgorithmToolAlgorithm::UseAlgorithmToolAlgorithm() :
@@ -30,12 +30,12 @@ StatusCode UseAlgorithmToolAlgorithm::Run()
 
     // Here we loop over all algorithm tools triggered via the PandoraSettings xml file, calling the example function that each
     // must provide. Algorithm tools typically process a large and expensive data object created by the calling algorithm.
-    for (ExampleAlgorithmToolList::const_iterator iter = m_algorithmToolList.begin(), iterEnd = m_algorithmToolList.end(); iter != iterEnd; ++iter)
+    for (IExampleAlgorithmTool *const pIExampleAlgorithmTool : m_algorithmToolList)
     {
         // Algorithm tools allow a user to drop-in (via xml) multiple methods of querying a data structure. Unlike calling daughter
         // algorithms, there is no underlying change in the Pandora list management, so it is just like being able to drop-in multiple
         // equivalent methods within an algorithm.
-        (*iter)->ExampleToolFunctionality(m_anExampleUInt, m_anExampleFloatVector);
+        pIExampleAlgorithmTool->ExampleToolFunctionality(m_anExampleUInt, m_anExampleFloatVector);
     }
 
     return STATUS_CODE_SUCCESS;
@@ -49,11 +49,11 @@ StatusCode UseAlgorithmToolAlgorithm::ReadSettings(const TiXmlHandle xmlHandle)
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, XmlHelper::ProcessAlgorithmToolList(*this, xmlHandle,
         "ExampleTools", algorithmToolList));
 
-    for (AlgorithmToolList::const_iterator iter = algorithmToolList.begin(), iterEnd = algorithmToolList.end(); iter != iterEnd; ++iter)
+    for (AlgorithmTool *const pAlgorithmTool : algorithmToolList)
     {
-        IExampleAlgorithmTool *const pIExampleAlgorithmTool(dynamic_cast<IExampleAlgorithmTool*>(*iter));
+        IExampleAlgorithmTool *const pIExampleAlgorithmTool(dynamic_cast<IExampleAlgorithmTool*>(pAlgorithmTool));
 
-        if (NULL == pIExampleAlgorithmTool)
+        if (nullptr == pIExampleAlgorithmTool)
             return STATUS_CODE_INVALID_PARAMETER;
 
         m_algorithmToolList.push_back(pIExampleAlgorithmTool);
@@ -68,4 +68,4 @@ StatusCode UseAlgorithmToolAlgorithm::ReadSettings(const TiXmlHandle xmlHandle)
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content

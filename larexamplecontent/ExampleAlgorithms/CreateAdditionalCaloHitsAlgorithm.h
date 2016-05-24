@@ -10,7 +10,7 @@
 
 #include "Pandora/Algorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -51,6 +51,6 @@ inline pandora::Algorithm *CreateAdditionalCaloHitsAlgorithm::Factory::CreateAlg
     return new CreateAdditionalCaloHitsAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef CREATE_ADDITIONAL_CALO_HITS_ALGORITHM_H

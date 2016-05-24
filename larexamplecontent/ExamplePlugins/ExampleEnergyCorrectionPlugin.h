@@ -10,7 +10,7 @@
 
 #include "Plugins/EnergyCorrectionsPlugin.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -32,6 +32,6 @@ private:
     float   m_energyMultiplier;     ///< Simple energy multiplier demonstration
 };
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef EXAMPLE_ENERGY_CORRECTION_PLUGIN_H

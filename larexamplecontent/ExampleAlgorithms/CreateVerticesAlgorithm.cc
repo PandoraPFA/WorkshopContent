@@ -8,35 +8,33 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExampleAlgorithms/CreateVerticesAlgorithm.h"
+#include "larexamplecontent/ExampleAlgorithms/CreateVerticesAlgorithm.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 StatusCode CreateVerticesAlgorithm::Run()
 {
     // Create one vertex per input cluster
-    const ClusterList *pClusterList(NULL);
+    const ClusterList *pClusterList(nullptr);
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::GetCurrentList(*this, pClusterList));
 
     // Algorithms must either create a temporary list for newly created vertices. Any vertices remaining in a temporary
     // list at the end of the algorithm will be deleted, so all vertices must be saved before the algorithm ends.
-    const VertexList *pTemporaryList(NULL);
+    const VertexList *pTemporaryList(nullptr);
     std::string temporaryListName;
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::CreateTemporaryListAndSetCurrent(*this, pTemporaryList, temporaryListName));
 
-    for (ClusterList::const_iterator iter = pClusterList->begin(), iterEnd = pClusterList->end(); iter != iterEnd; ++iter)
+    for (const Cluster *const pCluster : *pClusterList)
     {
-        const Cluster *const pCluster(*iter);
-
         PandoraContentApi::Vertex::Parameters parameters;
         parameters.m_position = pCluster->GetCentroid(pCluster->GetInnerPseudoLayer());
         parameters.m_vertexLabel = VERTEX_START;
         parameters.m_vertexType = VERTEX_3D;
 
-        const Vertex *pVertex(NULL);
+        const Vertex *pVertex(nullptr);
         PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::Vertex::Create(*this, parameters, pVertex));
     }
 
@@ -60,4 +58,4 @@ StatusCode CreateVerticesAlgorithm::ReadSettings(const TiXmlHandle xmlHandle)
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content

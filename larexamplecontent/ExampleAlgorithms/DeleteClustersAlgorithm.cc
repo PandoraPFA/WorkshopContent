@@ -8,11 +8,11 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExampleAlgorithms/DeleteClustersAlgorithm.h"
+#include "larexamplecontent/ExampleAlgorithms/DeleteClustersAlgorithm.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 
@@ -26,13 +26,13 @@ DeleteClustersAlgorithm::DeleteClustersAlgorithm() :
 StatusCode DeleteClustersAlgorithm::Run()
 {
     // Delete the requested number of clusters from the current list
-    const ClusterList *pClusterList(NULL);
+    const ClusterList *pClusterList(nullptr);
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::GetCurrentList(*this, pClusterList));
 
     unsigned int nClustersDeleted(0);
 
-    // Need to be very careful with cluster list iterators here, as we are deleting elements from the std::set. With sets, the rule
-    // is that only iterators pointing at the deleted element will be invalidated, so here we increment before deletion.
+    // Need to be very careful with cluster list iterators here, as we are deleting elements from the std::unordered_set. With sets,
+    // the rule is that only iterators pointing at the deleted element will be invalidated, so here we increment before deletion.
     for (ClusterList::const_iterator iter = pClusterList->begin(); iter != pClusterList->end(); /*no increment*/ )
     {
         const Cluster *const pClusterToDelete(*iter);
@@ -59,4 +59,4 @@ StatusCode DeleteClustersAlgorithm::ReadSettings(const TiXmlHandle xmlHandle)
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content

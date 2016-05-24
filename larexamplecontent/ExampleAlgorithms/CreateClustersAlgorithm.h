@@ -10,7 +10,7 @@
 
 #include "Pandora/Algorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -48,6 +48,6 @@ inline pandora::Algorithm *CreateClustersAlgorithm::Factory::CreateAlgorithm() c
     return new CreateClustersAlgorithm();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef CREATE_CLUSTERS_ALGORITHM_H

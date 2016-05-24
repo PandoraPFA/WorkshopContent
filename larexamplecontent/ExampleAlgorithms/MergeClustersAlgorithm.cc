@@ -8,13 +8,13 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExampleAlgorithms/MergeClustersAlgorithm.h"
+#include "larexamplecontent/ExampleAlgorithms/MergeClustersAlgorithm.h"
 
-#include "ExampleHelpers/ExampleHelper.h"
+#include "larexamplecontent/ExampleHelpers/ExampleHelper.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 MergeClustersAlgorithm::MergeClustersAlgorithm() :
@@ -28,7 +28,7 @@ MergeClustersAlgorithm::MergeClustersAlgorithm() :
 StatusCode MergeClustersAlgorithm::Run()
 {
     // Make a number of cluster merge operations, with each merge enlarging a parent cluster and deleting a daughter cluster.
-    const ClusterList *pClusterList(NULL);
+    const ClusterList *pClusterList(nullptr);
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::GetCurrentList(*this, pClusterList));
 
     if (pClusterList->size() < 2)
@@ -38,11 +38,10 @@ StatusCode MergeClustersAlgorithm::Run()
 
     // Need to be very careful with cluster list iterators here, as we are deleting elements from the std::set. With sets, the rule
     // is that only iterators pointing at the deleted element will be invalidated, so here we work with iterators to the parent cluster only.
-    for (ClusterList::const_iterator pIter = pClusterList->begin(); pIter != pClusterList->end(); ++pIter)
+    for (const Cluster *const pParentCluster : *pClusterList)
     {
         try
         {
-            const Cluster *const pParentCluster(*pIter);
             const Cluster *const pBestDaughterCluster(ExampleHelper::FindClosestCluster(pParentCluster, pClusterList, m_maxClusterDistance));
 
             if (++nClusterMerges > m_nClusterMergesToMake)
@@ -74,4 +73,4 @@ StatusCode MergeClustersAlgorithm::ReadSettings(const TiXmlHandle xmlHandle)
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content

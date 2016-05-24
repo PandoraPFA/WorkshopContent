@@ -8,9 +8,9 @@
 #ifndef EXAMPLE_ALGORITHM_TOOL_H
 #define EXAMPLE_ALGORITHM_TOOL_H 1
 
-#include "ExampleAlgorithms/UseAlgorithmToolAlgorithm.h"
+#include "larexamplecontent/ExampleAlgorithms/UseAlgorithmToolAlgorithm.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -41,6 +41,6 @@ inline pandora::AlgorithmTool *ExampleAlgorithmTool::Factory::CreateAlgorithmToo
     return new ExampleAlgorithmTool();
 }
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef EXAMPLE_ALGORITHM_TOOL_H

@@ -10,7 +10,7 @@
 
 #include "Plugins/ParticleIdPlugin.h"
 
-namespace example_content
+namespace lar_example_content
 {
 
 /**
@@ -32,6 +32,6 @@ private:
     unsigned int    m_exampleParameter;     ///< An example parameter
 };
 
-} // namespace example_content
+} // namespace lar_example_content
 
 #endif // #ifndef EXAMPLE_PARTICLE_ID_PLUGIN_H

@@ -10,7 +10,7 @@
 
 #include "larpandoracontent/LArPlugins/LArPseudoLayerPlugin.h"
 
-namespace lar_example
+namespace lar_example_content
 {
 
 /**
@@ -30,6 +30,6 @@ public:
     MicroBooNEPseudoLayerPlugin();
 };
 
-} // namespace lar_example
+} // namespace lar_example_content
 
 #endif // #ifndef EXAMPLE_UBOONE_PSEUDO_LAYER_PLUGIN_H

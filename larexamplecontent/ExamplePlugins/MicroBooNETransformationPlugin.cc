@@ -10,7 +10,7 @@
 
 #include <cmath>
 
-namespace lar_example
+namespace lar_example_content
 {
 
 MicroBooNETransformationPlugin::MicroBooNETransformationPlugin() :
@@ -18,4 +18,4 @@ MicroBooNETransformationPlugin::MicroBooNETransformationPlugin() :
 {
 }
 
-} // namespace lar_example
+} // namespace lar_example_content

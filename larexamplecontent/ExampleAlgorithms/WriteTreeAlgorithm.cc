@@ -8,11 +8,11 @@
 
 #include "Pandora/AlgorithmHeaders.h"
 
-#include "ExampleAlgorithms/WriteTreeAlgorithm.h"
+#include "larexamplecontent/ExampleAlgorithms/WriteTreeAlgorithm.h"
 
 using namespace pandora;
 
-namespace example_content
+namespace lar_example_content
 {
 
 WriteTreeAlgorithm::~WriteTreeAlgorithm()
@@ -27,15 +27,14 @@ StatusCode WriteTreeAlgorithm::Run()
 {
     // Create a simple root tree containing, for each event, the number of clusters in the current list and a vector
     // of all the cluster hadronic energy estimators.
-    const ClusterList *pClusterList(NULL);
+    const ClusterList *pClusterList(nullptr);
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::GetCurrentList(*this, pClusterList));
 
     int nClusters(0);
     FloatVector clusterEnergies;
 
-    for (ClusterList::const_iterator iter = pClusterList->begin(), iterEnd = pClusterList->end(); iter != iterEnd; ++iter)
+    for (const Cluster *const pCluster : *pClusterList)
     {
-        const Cluster *const pCluster(*iter);
         clusterEnergies.push_back(pCluster->GetHadronicEnergy());
         ++nClusters;
     }
@@ -60,4 +59,4 @@ StatusCode WriteTreeAlgorithm::ReadSettings(const TiXmlHandle xmlHandle)
     return STATUS_CODE_SUCCESS;
 }
 
-} // namespace example_content
+} // namespace lar_example_content
