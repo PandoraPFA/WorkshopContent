@@ -1,0 +1,118 @@
+<!-- Pandora settings xml file -->
+
+<pandora>
+    <!-- GLOBAL SETTINGS -->
+    <IsMonitoringEnabled>true</IsMonitoringEnabled>
+    <ShouldDisplayAlgorithmInfo>true</ShouldDisplayAlgorithmInfo>
+
+    <!-- PLUGIN SETTINGS -->
+    <MuonPlugin>ParticleIdExample</MuonPlugin>
+    <HadronicEnergyCorrectionPlugins>EnergyCorrectionExample</HadronicEnergyCorrectionPlugins>
+
+    <ParticleIdExample>
+        <ExampleParameter>1</ExampleParameter>
+    </ParticleIdExample>
+
+    <EnergyCorrectionExample>
+        <EnergyMultiplier>1.1</EnergyMultiplier>
+    </EnergyCorrectionExample>
+
+    <!-- ALGORITHM SETTINGS -->
+    <algorithm type="AccessListsExample"/>
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentCaloHits>true</DisplayCurrentCaloHits>
+    </algorithm>
+
+    <algorithm type="SelectHitSubsetExample">
+        <HitSelectionFraction>0.9</HitSelectionFraction>
+        <OutputListName>SelectedHits</OutputListName>
+    </algorithm>
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentCaloHits>true</DisplayCurrentCaloHits>
+    </algorithm>
+
+    <algorithm type="CreateClustersExample">
+        <MaxClusterHitDistance>20.</MaxClusterHitDistance>
+        <OutputListName>ExampleClusters</OutputListName>
+    </algorithm>
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentClusters>true</DisplayCurrentClusters>
+    </algorithm>
+
+    <algorithm type="MergeClustersExample">
+        <NClusterMergesToMake>1</NClusterMergesToMake>
+    </algorithm>
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentClusters>true</DisplayCurrentClusters>
+    </algorithm>
+
+    <algorithm type="FragmentClustersExample">
+        <NClustersToFragment>1</NClustersToFragment>
+        <NFragmentsPerCluster>2</NFragmentsPerCluster>
+    </algorithm>
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentClusters>true</DisplayCurrentClusters>
+    </algorithm>
+
+    <algorithm type="ReconfigureClustersExample">
+        <NClustersToReconfigure>1</NClustersToReconfigure>
+        <ReclusteringAlgorithms>
+            <algorithm type="CreateClustersDaughterExample"><NClustersToMake>3</NClustersToMake></algorithm>
+            <algorithm type="CreateClustersDaughterExample"><NClustersToMake>4</NClustersToMake></algorithm>
+        </ReclusteringAlgorithms>
+    </algorithm>
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentClusters>true</DisplayCurrentClusters>
+    </algorithm>
+
+    <algorithm type="DeleteClustersExample">
+        <NClustersToDelete>1</NClustersToDelete>
+    </algorithm>
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentClusters>true</DisplayCurrentClusters>
+    </algorithm>
+
+    <algorithm type="CreateVerticesExample">
+        <OutputListName>ExampleVertices</OutputListName>
+    </algorithm>
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentVertices>true</DisplayCurrentVertices>
+    </algorithm>
+
+    <algorithm type="CreatePfosExample">
+        <OutputListName>ExamplePfos</OutputListName>
+    </algorithm>
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentPfos>true</DisplayCurrentPfos>
+    </algorithm>
+
+    <algorithm type="CreateAdditionalCaloHitsExample">
+        <NCaloHitsToMake>20</NCaloHitsToMake>
+        <SetCurrentListToInputList>true</SetCurrentListToInputList>
+    </algorithm>
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentCaloHits>true</DisplayCurrentCaloHits>
+    </algorithm>
+
+    <algorithm type="UseAlgorithmToolExample">
+        <ExampleTools>
+            <tool type="AlgorithmToolExample"/>
+        </ExampleTools>
+    </algorithm>
+
+    <algorithm type="UsePluginsExample"/>
+
+    <algorithm type="WriteTreeExample">
+        <FileName>ExampleFile.root</FileName>
+        <TreeName>ExampleTree</TreeName>
+    </algorithm>
+
+    <algorithm type="DisplayListsExample">
+        <DisplayCurrentCaloHits>true</DisplayCurrentCaloHits>
+        <DisplayCurrentTracks>false</DisplayCurrentTracks>
+        <DisplayCurrentMCParticles>false</DisplayCurrentMCParticles>
+        <DisplayCurrentClusters>true</DisplayCurrentClusters>
+        <DisplayCurrentVertices>true</DisplayCurrentVertices>
+        <DisplayCurrentPfos>true</DisplayCurrentPfos>
+    </algorithm>
+</pandora>
