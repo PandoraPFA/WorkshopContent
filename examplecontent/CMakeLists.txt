@@ -2,15 +2,16 @@
 #-------------------------------------------------------------------------------------------------------------------------------------------
 cmake_minimum_required(VERSION 2.8.2 FATAL_ERROR)
 
+if(NOT WORKSHOP_TOP_LEVEL_DIR)
+    message(FATAL_ERROR "Unexpected directory structure for ExampleContent.")
+endif()
+
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR "ExampleContent requires an out-of-source build.")
 endif()
 
 # project name
-if(NOT EXAMPLE_CONTENT_LIBRARY_NAME STREQUAL "ExamplePandoraContent")
-    set(EXAMPLE_CONTENT_LIBRARY_NAME "ExampleContent")
-endif()
-project(${EXAMPLE_CONTENT_LIBRARY_NAME})
+project(ExampleContent)
 
 # project version
 set(${PROJECT_NAME}_VERSION_MAJOR 02)
@@ -23,7 +24,7 @@ set(${PROJECT_NAME}_VERSION "${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_
 include(PandoraCMakeSettings)
 
 # Prefer local include directory to any paths to installed header files
-include_directories(include)
+include_directories(${PROJECT_SOURCE_DIR})
 
 find_package(PandoraSDK 02.03.00 REQUIRED)
 include_directories(${PandoraSDK_INCLUDE_DIRS})
@@ -43,9 +44,8 @@ endif()
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # Low level settings - compiler etc
-if(NOT CMAKE_CXX_FLAGS)
+if (NOT CMAKE_CXX_FLAGS)
     set(CMAKE_CXX_FLAGS "-std=c++11")
-    set(PROCEED_WITHOUT_CXX_FLAGS ON)
 endif()
 
 include(CheckCXXCompilerFlag)
@@ -53,12 +53,7 @@ unset(COMPILER_SUPPORTS_CXX_FLAGS CACHE)
 CHECK_CXX_COMPILER_FLAG(${CMAKE_CXX_FLAGS} COMPILER_SUPPORTS_CXX_FLAGS)
 
 if(NOT COMPILER_SUPPORTS_CXX_FLAGS)
-    message(STATUS "The compiler ${CMAKE_CXX_COMPILER} does not support cxx flags ${CMAKE_CXX_FLAGS}")
-    if(NOT PROCEED_WITHOUT_CXX_FLAGS)
-        message(FATAL_ERROR "CMake abort.")
-    endif()
-    message(STATUS "Proceed without cxx flags ${CMAKE_CXX_FLAGS}")
-    unset(CMAKE_CXX_FLAGS)
+    message(FATAL_ERROR "The compiler ${CMAKE_CXX_COMPILER} does not support cxx flags ${CMAKE_CXX_FLAGS}")
 endif()
 
 if(APPLE)
@@ -71,37 +66,28 @@ endif()
 # Build products
 
 # - Collect sources - not ideal because you have to keep running CMake to pick up changes
-file(GLOB_RECURSE LAR_EXAMPLE_CONTENT_SRCS RELATIVE ${PROJECT_SOURCE_DIR} "examplecontent/*.cc")
+file(GLOB_RECURSE EXAMPLE_CONTENT_SRCS RELATIVE ${PROJECT_SOURCE_DIR} "*.cc")
 
 # - Add library and properties
 add_library(${PROJECT_NAME} SHARED ${EXAMPLE_CONTENT_SRCS})
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${${PROJECT_NAME}_VERSION} SOVERSION ${${PROJECT_NAME}_SOVERSION})
 
 # - Executable
-add_executable(PandoraExample ${PROJECT_SOURCE_DIR}/examplecontent/Test/PandoraExample.cc)
+add_executable(PandoraExample ${PROJECT_SOURCE_DIR}/Test/PandoraExample.cc)
 if(PANDORA_MONITORING)
     include_directories(${ROOT_INCLUDE_DIRS})
     target_link_libraries(PandoraExample ${ROOT_LIBRARIES})
 endif()
 target_link_libraries(PandoraExample ${PROJECT_NAME})
 
-# - Optional documents
-option(ExampleContent_BUILD_DOCS "Build documentation for ${PROJECT_NAME}" OFF)
-if(ExampleContent_BUILD_DOCS)
-    add_subdirectory(doc)
-endif()
-
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # Install products
 
 # - library
-install(TARGETS ${PROJECT_NAME} DESTINATION lib COMPONENT Runtime)
-
-# - headers
-install(DIRECTORY include/ DESTINATION include COMPONENT Development FILES_MATCHING PATTERN "*.h")
+install(TARGETS ${PROJECT_NAME} DESTINATION ${WORKSHOP_TOP_LEVEL_DIR}/lib COMPONENT Runtime)
 
 # - executable
-install(TARGETS PandoraExample DESTINATION bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+install(TARGETS PandoraExample DESTINATION ${WORKSHOP_TOP_LEVEL_DIR}/bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # display some variables and write them to cache
