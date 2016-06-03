@@ -93,4 +93,45 @@ const Vertex *ExampleHelper::FindClosestVertex(const Cluster *const pCluster, co
     return pClosestVertex;
 }
 
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+bool ExampleHelper::ExampleCaloHitSort(const CaloHit *const pLhs, const CaloHit *const pRhs)
+{
+    const CartesianVector deltaPosition(pRhs->GetPositionVector() - pLhs->GetPositionVector());
+
+    if (std::fabs(deltaPosition.GetX()) > std::numeric_limits<float>::epsilon())
+        return (deltaPosition.GetX() > std::numeric_limits<float>::epsilon());
+
+    if (std::fabs(deltaPosition.GetY()) > std::numeric_limits<float>::epsilon())
+        return (deltaPosition.GetY() > std::numeric_limits<float>::epsilon());
+
+    if (std::fabs(deltaPosition.GetZ()) > std::numeric_limits<float>::epsilon())
+        return (deltaPosition.GetZ() > std::numeric_limits<float>::epsilon());
+
+    // ATTN Use energy as final tie-breaker
+    return (pLhs->GetHadronicEnergy() > pRhs->GetHadronicEnergy());
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+bool ExampleHelper::ExampleClusterSort(const Cluster *const pLhs, const Cluster *const pRhs)
+{
+    if ((0 == pLhs->GetNCaloHits()) || (0 == pRhs->GetNCaloHits()))
+        return (pLhs->GetNCaloHits() > pRhs->GetNCaloHits());
+
+    const CartesianVector deltaPosition(pRhs->GetCentroid(pRhs->GetInnerPseudoLayer()) - pLhs->GetCentroid(pLhs->GetInnerPseudoLayer()));
+
+    if (std::fabs(deltaPosition.GetX()) > std::numeric_limits<float>::epsilon())
+        return (deltaPosition.GetX() > std::numeric_limits<float>::epsilon());
+
+    if (std::fabs(deltaPosition.GetY()) > std::numeric_limits<float>::epsilon())
+        return (deltaPosition.GetY() > std::numeric_limits<float>::epsilon());
+
+    if (std::fabs(deltaPosition.GetZ()) > std::numeric_limits<float>::epsilon())
+        return (deltaPosition.GetZ() > std::numeric_limits<float>::epsilon());
+
+    // ATTN Use energy as final tie-breaker
+    return (pLhs->GetHadronicEnergy() > pRhs->GetHadronicEnergy());
+}
+
 } // namespace example_content

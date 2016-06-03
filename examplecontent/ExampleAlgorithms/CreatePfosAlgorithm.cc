@@ -33,7 +33,10 @@ StatusCode CreatePfosAlgorithm::Run()
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::CreateTemporaryListAndSetCurrent(*this, pTemporaryList, temporaryListName));
 
     // Here we simply create one pfo per cluster in the current list, adding also the closest available vertex in the current list.
-    for (const Cluster *const pCluster : *pClusterList)
+    ClusterVector clusterVector(pClusterList->begin(), pClusterList->end());
+    std::sort(clusterVector.begin(), clusterVector.end(), ExampleHelper::ExampleClusterSort);
+
+    for (const Cluster *const pCluster : clusterVector)
     {
         // Once a cluster has been added to a pfo, it is flagged as unavailable.
         if (!PandoraContentApi::IsAvailable(*this, pCluster))

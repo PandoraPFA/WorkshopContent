@@ -10,6 +10,8 @@
 
 #include "examplecontent/ExampleAlgorithms/SelectHitSubsetAlgorithm.h"
 
+#include "examplecontent/ExampleHelpers/ExampleHelper.h"
+
 #include <cstdlib>
 
 using namespace pandora;
@@ -33,7 +35,10 @@ StatusCode SelectHitSubsetAlgorithm::Run()
 
     CaloHitList selectedCaloHitList;
 
-    for (const CaloHit *const pCaloHit : *pCaloHitList)
+    CaloHitVector caloHitVector(pCaloHitList->begin(), pCaloHitList->end());
+    std::sort(caloHitVector.begin(), caloHitVector.end(), ExampleHelper::ExampleCaloHitSort);
+
+    for (const CaloHit *const pCaloHit : caloHitVector)
     {
         if ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) < m_hitSelectionFraction)
             selectedCaloHitList.insert(pCaloHit);
