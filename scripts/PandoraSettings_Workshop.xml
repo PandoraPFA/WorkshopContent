@@ -25,14 +25,16 @@
         <OutputCaloHitListNameU>CaloHitListU</OutputCaloHitListNameU>
         <OutputCaloHitListNameV>CaloHitListV</OutputCaloHitListNameV>
         <FilteredCaloHitListName>CaloHitList2D</FilteredCaloHitListName>
-        <CurrentCaloHitListReplacement>CaloHitList2D</CurrentCaloHitListReplacement>
+        <CurrentCaloHitListReplacement>CaloHitListW</CurrentCaloHitListReplacement>
         <OutputMCParticleListNameU>MCParticleListU</OutputMCParticleListNameU>
         <OutputMCParticleListNameV>MCParticleListV</OutputMCParticleListNameV>
         <OutputMCParticleListNameW>MCParticleListW</OutputMCParticleListNameW>
         <OutputMCParticleListName3D>MCParticleList3D</OutputMCParticleListName3D>
-        <CurrentMCParticleListReplacement>MCParticleList3D</CurrentMCParticleListReplacement>
+        <CurrentMCParticleListReplacement>MCParticleListW</CurrentMCParticleListReplacement>
         <MipEquivalentCut>0.</MipEquivalentCut>
     </algorithm>
+
+    <algorithm type = "Template"/>
 
     <algorithm type = "LArVisualMonitoring">
         <CaloHitListNames>CaloHitListW CaloHitListU CaloHitListV</CaloHitListNames>
