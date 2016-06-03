@@ -1,16 +1,17 @@
-# cmake file for building ExampleContent
+# cmake file for building WorkshopContent
 #-------------------------------------------------------------------------------------------------------------------------------------------
 cmake_minimum_required(VERSION 2.8.2 FATAL_ERROR)
+
+if(NOT WORKSHOP_TOP_LEVEL_DIR)
+    message(FATAL_ERROR "Unexpected directory structure for WorkshopContent.")
+endif()
 
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR "WorkshopContent requires an out-of-source build.")
 endif()
 
 # project name
-if(NOT WORKSHOP_CONTENT_LIBRARY_NAME STREQUAL "WorkshopPandoraContent")
-    set(WORKSHOP_CONTENT_LIBRARY_NAME "WorkshopContent")
-endif()
-project(${WORKSHOP_CONTENT_LIBRARY_NAME})
+project(WorkshopContent)
 
 # project version
 set(${PROJECT_NAME}_VERSION_MAJOR 00)
@@ -23,7 +24,7 @@ set(${PROJECT_NAME}_VERSION "${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_
 include(PandoraCMakeSettings)
 
 # Prefer local include directory to any paths to installed header files
-include_directories(include)
+include_directories(${PROJECT_SOURCE_DIR})
 
 find_package(PandoraSDK 02.03.00 REQUIRED)
 find_package(LArContent 02.07.03 REQUIRED)
@@ -71,37 +72,28 @@ endif()
 # Build products
 
 # - Collect sources - not ideal because you have to keep running CMake to pick up changes
-file(GLOB_RECURSE WORKSHOP_CONTENT_SRCS RELATIVE ${PROJECT_SOURCE_DIR} "workshopcontent/*.cc")
+file(GLOB_RECURSE WORKSHOP_CONTENT_SRCS RELATIVE ${PROJECT_SOURCE_DIR} "*.cc")
 
 # - Add library and properties
 add_library(${PROJECT_NAME} SHARED ${WORKSHOP_CONTENT_SRCS})
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${${PROJECT_NAME}_VERSION} SOVERSION ${${PROJECT_NAME}_SOVERSION})
 
 # - Executable
-add_executable(PandoraWorkshop ${PROJECT_SOURCE_DIR}/workshopcontent/Test/PandoraWorkshop.cc)
+add_executable(PandoraWorkshop ${PROJECT_SOURCE_DIR}/Test/PandoraWorkshop.cc)
 if(PANDORA_MONITORING)
     include_directories(${ROOT_INCLUDE_DIRS})
     target_link_libraries(PandoraWorkshop ${ROOT_LIBRARIES})
 endif()
 target_link_libraries(PandoraWorkshop ${PROJECT_NAME})
 
-# - Optional documents
-option(ExampleContent_BUILD_DOCS "Build documentation for ${PROJECT_NAME}" OFF)
-if(ExampleContent_BUILD_DOCS)
-    add_subdirectory(doc)
-endif()
-
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # Install products
 
 # - library
-install(TARGETS ${PROJECT_NAME} DESTINATION lib COMPONENT Runtime)
-
-# - headers
-install(DIRECTORY include/ DESTINATION include COMPONENT Development FILES_MATCHING PATTERN "*.h")
+install(TARGETS ${PROJECT_NAME} DESTINATION ${WORKSHOP_TOP_LEVEL_DIR}/lib COMPONENT Runtime)
 
 # - executable
-install(TARGETS PandoraExample DESTINATION bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+install(TARGETS PandoraWorkshop DESTINATION ${WORKSHOP_TOP_LEVEL_DIR}/bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # display some variables and write them to cache
