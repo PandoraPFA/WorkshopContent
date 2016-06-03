@@ -51,6 +51,26 @@ public:
      *  @return the address of the closest vertex
      */
     static const pandora::Vertex *FindClosestVertex(const pandora::Cluster *const pCluster, const pandora::VertexList *const pVertexListList, const float maxDistance);
+
+    /**
+     *  @brief  Sort calo hits based on their x, y and z positions
+     * 
+     *  @param  pLhs address of the lhs calo hit
+     *  @param  pRhs address of the rhs calo hit
+     * 
+     *  @return whether lhs should precedes rhs
+     */
+    static bool ExampleCaloHitSort(const pandora::CaloHit *const pLhs, const pandora::CaloHit *const pRhs);
+
+    /**
+     *  @brief  Sort clusters based on their centroid x, y and z positions
+     * 
+     *  @param  pLhs address of the lhs cluster
+     *  @param  pRhs address of the rhs cluster
+     * 
+     *  @return whether lhs should precedes rhs
+     */
+    static bool ExampleClusterSort(const pandora::Cluster *const pLhs, const pandora::Cluster *const pRhs);
 };
 
 } // namespace example_content

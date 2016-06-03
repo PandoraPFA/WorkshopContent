@@ -25,7 +25,7 @@ ExampleParticleIdPlugin::ExampleParticleIdPlugin() :
 bool ExampleParticleIdPlugin::IsMatch(const Cluster *const /*pCluster*/) const
 {
     // Particle id plugins are instantiated and registed (with the Pandora plugin manager) via the client app. They are then
-    // associated with particular particle id "slots" via the PandoraSettings xml file e.g. MuonIdPlugin, ElectronIdPlugin
+    // associated with particular particle id "slots" via the PandoraSettings xml file e.g. MuonPlugin, ElectronPlugin
     // Each plugin can have configurable parameters and must provide an implementation of an IsMatch(const Cluster *const) function.
 
     return false;

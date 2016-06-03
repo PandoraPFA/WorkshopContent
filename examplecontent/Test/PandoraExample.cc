@@ -208,7 +208,7 @@ pandora::StatusCode GenerateExampleHits(const pandora::Pandora &pandora, const P
 Parameters::Parameters() :
     m_pandoraSettingsFile(),
     m_nEventsToProcess(-1),
-    m_nHitGroupings(5),
+    m_nHitGroupings(10),
     m_nHitsPerGroup(100),
     m_worldSideLength(500.f),
     m_groupSideLength(10.f)

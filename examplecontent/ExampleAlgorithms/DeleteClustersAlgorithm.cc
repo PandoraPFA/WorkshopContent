@@ -10,6 +10,8 @@
 
 #include "examplecontent/ExampleAlgorithms/DeleteClustersAlgorithm.h"
 
+#include "examplecontent/ExampleHelpers/ExampleHelper.h"
+
 using namespace pandora;
 
 namespace example_content
@@ -31,19 +33,21 @@ StatusCode DeleteClustersAlgorithm::Run()
 
     unsigned int nClustersDeleted(0);
 
-    // Need to be very careful with cluster list iterators here, as we are deleting elements from the std::unordered_set. With sets,
-    // the rule is that only iterators pointing at the deleted element will be invalidated, so here we increment before deletion.
-    for (ClusterList::const_iterator iter = pClusterList->begin(); iter != pClusterList->end(); /*no increment*/ )
-    {
-        const Cluster *const pClusterToDelete(*iter);
-        ++iter;
+    // Need to be very careful with cluster list iterators here, as we are deleting elements from the std::unordered_set owned by the manager.
+    // If user chooses to iterate over that same list, must adhere to rule that iterators pointing at the deleted element will be invalidated.
 
+    // Here, iterate over an ordered copy of the cluster list
+    ClusterVector clusterVector(pClusterList->begin(), pClusterList->end());
+    std::sort(clusterVector.begin(), clusterVector.end(), ExampleHelper::ExampleClusterSort);
+
+    for (const Cluster *const pClusterToDelete : clusterVector)
+    {
         if (++nClustersDeleted > m_nClustersToDelete)
             break;
 
         PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::Delete(*this, pClusterToDelete));
 
-        // pClusterToDelete is now a dangling pointer - do not deference!
+        // pClusterToDelete is now a dangling pointer, which exists only in the local cluster vector - do not deference!
     }
 
     return STATUS_CODE_SUCCESS;

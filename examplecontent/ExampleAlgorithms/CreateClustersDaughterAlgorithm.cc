@@ -40,9 +40,12 @@ StatusCode CreateClustersDaughterAlgorithm::Run()
     if (!pCurrentClusterList->empty())
         return STATUS_CODE_NOT_ALLOWED;
 
-    // Here we use the first m_nClustersToMake hits in the unordered calo hit list to seed new clusters. Subsequent hits are then
+    // Here we use the first m_nClustersToMake hits in an ordered calo hit vector to seed new clusters. Subsequent hits are then
     // added to the closest seed cluster, based on a simple (rather than efficient) closest-hits calculation in the example helper.
-    for (const CaloHit *const pCaloHit : *pCaloHitList)
+    CaloHitVector caloHitVector(pCaloHitList->begin(), pCaloHitList->end());
+    std::sort(caloHitVector.begin(), caloHitVector.end(), ExampleHelper::ExampleCaloHitSort);
+
+    for (const CaloHit *const pCaloHit : caloHitVector)
     {
         // Once a calo hit has been added to a cluster, it is flagged as unavailable.
         if (!PandoraContentApi::IsAvailable(*this, pCaloHit))
