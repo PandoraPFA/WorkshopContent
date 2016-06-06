@@ -8,7 +8,6 @@
 
 #include "Api/PandoraApi.h"
 
-#include "workshopcontent/Algorithms/TemplateAlgorithm.h"
 #include "workshopcontent/Plugins/MicroBooNEPseudoLayerPlugin.h"
 #include "workshopcontent/Plugins/MicroBooNETransformationPlugin.h"
 
@@ -74,7 +73,6 @@ int main(int argc, char *argv[])
         PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, LArContent::SetLArPseudoLayerPlugin(*pPandora, new workshop_content::MicroBooNEPseudoLayerPlugin));
         PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, LArContent::SetLArTransformationPlugin(*pPandora, new workshop_content::MicroBooNETransformationPlugin));
 
-        PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::RegisterAlgorithmFactory(*pPandora, "Template", new workshop_content::TemplateAlgorithm::Factory));
         PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::ReadSettings(*pPandora, parameters.m_pandoraSettingsFile));
 
         int nEvents(0);

@@ -34,8 +34,6 @@
         <MipEquivalentCut>0.</MipEquivalentCut>
     </algorithm>
 
-    <algorithm type = "Template"/>
-
     <algorithm type = "LArVisualMonitoring">
         <CaloHitListNames>CaloHitListW CaloHitListU CaloHitListV</CaloHitListNames>
         <MCParticleListNames>MCParticleList3D</MCParticleListNames>
