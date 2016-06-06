@@ -28,9 +28,14 @@ for extension in ['cc', 'h']:
 
 includeInput = '#include "workshopcontent/Algorithms/TemplateAlgorithm.h"'
 registerAlgorithm = 'PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::RegisterAlgorithmFactory(*pPandora, "Template", new workshop_content::TemplateAlgorithm::Factory));'
+xmlSettings = '<algorithm type = "Template"/>'
+
 updatedInclude = includeInput.replace("Template", newName)
 updatedRegister = registerAlgorithm.replace("Template", newName)
+updatedXml = xmlSettings.replace("Template", newName)
 
-print '\nin workshopcontent/Test/PandoraWorkshop.cc\n'
+print '\n--in workshopcontent/Test/PandoraWorkshop.cc\n'
 print '\t' + updatedInclude + '\n'
 print '\t' + updatedRegister + '\n'
+print '\n--in scripts/PandoraSettings_Workshop.xml\n'
+print '\t' + updatedXml + '\n'
