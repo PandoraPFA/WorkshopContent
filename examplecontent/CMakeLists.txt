@@ -2,10 +2,6 @@
 #-------------------------------------------------------------------------------------------------------------------------------------------
 cmake_minimum_required(VERSION 2.8.2 FATAL_ERROR)
 
-if(NOT WORKSHOP_TOP_LEVEL_DIR)
-    message(FATAL_ERROR "Unexpected directory structure for ExampleContent.")
-endif()
-
 if(${CMAKE_SOURCE_DIR} STREQUAL ${CMAKE_BINARY_DIR})
     message(FATAL_ERROR "ExampleContent requires an out-of-source build.")
 endif()
@@ -67,6 +63,8 @@ endif()
 
 # - Collect sources - not ideal because you have to keep running CMake to pick up changes
 file(GLOB_RECURSE EXAMPLE_CONTENT_SRCS RELATIVE ${PROJECT_SOURCE_DIR} "*.cc")
+file(GLOB_RECURSE EXAMPLE_CONTENT_TEST_SRCS RELATIVE ${PROJECT_SOURCE_DIR} "Test/*.cc")
+list(REMOVE_ITEM EXAMPLE_CONTENT_SRCS ${EXAMPLE_CONTENT_TEST_SRCS})
 
 # - Add library and properties
 add_library(${PROJECT_NAME} SHARED ${EXAMPLE_CONTENT_SRCS})
@@ -84,10 +82,10 @@ target_link_libraries(PandoraExample ${PROJECT_NAME})
 # Install products
 
 # - library
-install(TARGETS ${PROJECT_NAME} DESTINATION ${WORKSHOP_TOP_LEVEL_DIR}/lib COMPONENT Runtime)
+install(TARGETS ${PROJECT_NAME} DESTINATION lib COMPONENT Runtime)
 
 # - executable
-install(TARGETS PandoraExample DESTINATION ${WORKSHOP_TOP_LEVEL_DIR}/bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
+install(TARGETS PandoraExample DESTINATION bin PERMISSIONS OWNER_READ OWNER_WRITE OWNER_EXECUTE GROUP_READ GROUP_EXECUTE WORLD_READ WORLD_EXECUTE)
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 # display some variables and write them to cache
