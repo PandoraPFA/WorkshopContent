@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
             return 1;
 
 #ifdef MONITORING
-        TApplication *const pTApplication = new TApplication("MyTest", &argc, argv);
+        TApplication *const pTApplication = new TApplication("Workshop", &argc, argv);
         pTApplication->SetReturnFromRun(kTRUE);
 #endif
         const pandora::Pandora *const pPandora = new pandora::Pandora();
@@ -102,7 +102,7 @@ bool ParseCommandLine(int argc, char *argv[], Parameters &parameters)
 {
     int c(0);
 
-    while ((c = getopt(argc, argv, "i:n:N::")) != -1)
+    while ((c = getopt(argc, argv, "i:n:N?")) != -1)
     {
         switch (c)
         {
