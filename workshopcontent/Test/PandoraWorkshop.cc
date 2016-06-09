@@ -8,6 +8,10 @@
 
 #include "Api/PandoraApi.h"
 
+#include "workshopcontent/Algorithms/MyParticleMergingAlgorithm.h"
+#include "workshopcontent/Algorithms/MyParticleCreationAlgorithm.h"
+#include "workshopcontent/Algorithms/MyClusterMergingAlgorithm.h"
+#include "workshopcontent/Algorithms/MyTestAlgorithm.h"
 #include "workshopcontent/Plugins/MicroBooNEPseudoLayerPlugin.h"
 #include "workshopcontent/Plugins/MicroBooNETransformationPlugin.h"
 
@@ -72,6 +76,15 @@ int main(int argc, char *argv[])
         PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, LArContent::RegisterBasicPlugins(*pPandora));
         PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, LArContent::SetLArPseudoLayerPlugin(*pPandora, new workshop_content::MicroBooNEPseudoLayerPlugin));
         PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, LArContent::SetLArTransformationPlugin(*pPandora, new workshop_content::MicroBooNETransformationPlugin));
+
+        PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::RegisterAlgorithmFactory(*pPandora,
+            "MyParticleMerging", new workshop_content::MyParticleMergingAlgorithm::Factory));
+        PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::RegisterAlgorithmFactory(*pPandora,
+             "MyParticleCreation", new workshop_content::MyParticleCreationAlgorithm::Factory));
+        PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::RegisterAlgorithmFactory(*pPandora,
+            "MyClusterMerging", new workshop_content::MyClusterMergingAlgorithm::Factory));
+        PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::RegisterAlgorithmFactory(*pPandora,
+            "MyTest", new workshop_content::MyTestAlgorithm::Factory));
 
         PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::ReadSettings(*pPandora, parameters.m_pandoraSettingsFile));
 
