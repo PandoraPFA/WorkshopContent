@@ -116,7 +116,7 @@ bool ParseCommandLine(int argc, char *argv[], Parameters &parameters)
 {
     int c(0);
 
-    while ((c = getopt(argc, argv, "i:n:g:p:w:s:h")) != -1)
+    while ((c = getopt(argc, argv, "i:n:g:p:w:s:?")) != -1)
     {
         switch (c)
         {
@@ -138,7 +138,7 @@ bool ParseCommandLine(int argc, char *argv[], Parameters &parameters)
         case 's':
             parameters.m_groupSideLength = atof(optarg);
             break;
-        case 'h':
+        case '?':
         default:
             std::cout << std::endl << "PandoraExample " << std::endl
                       << "    -i PandoraSettings.xml  (mandatory)" << std::endl
