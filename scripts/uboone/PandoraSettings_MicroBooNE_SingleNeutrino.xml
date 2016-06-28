@@ -11,8 +11,8 @@
 
     <!-- ALGORITHM SETTINGS -->
     <algorithm type = "LArEventReading">
-        <EventFileName>/r05/dune/mcproduction_v05_08_00/reco2_bnb_nu/Pandora_Events_Nu_0_0.pndr</EventFileName>
-        <GeometryFileName>/r05/dune/mcproduction_v05_08_00/geometry_uboone/Geometry_MicroBooNE.pndr</GeometryFileName>
+        <EventFileName>/path/to/events/.pndr/or/.xml</EventFileName>
+        <GeometryFileName>/path/to/geometry/.pndr/or/.xml</GeometryFileName>
         <ShouldReadEvents>true</ShouldReadEvents>
         <ShouldReadGeometry>true</ShouldReadGeometry>
         <SkipToEvent>0</SkipToEvent>

@@ -6,11 +6,11 @@
 
     <!-- ALGORITHM SETTINGS -->
     <algorithm type = "LArEventReading">
-        <EventFileName>/usera/marshall/Pandora_Events.pndr</EventFileName>
-        <GeometryFileName>/r05/dune/mcproduction_v05_08_00/geometry_uboone/Geometry_MicroBooNE.pndr</GeometryFileName>
+        <EventFileName>/path/to/events/.pndr/or/.xml</EventFileName>
+        <GeometryFileName>/path/to/geometry/.pndr/or/.xml</GeometryFileName>
         <ShouldReadEvents>true</ShouldReadEvents>
         <ShouldReadGeometry>true</ShouldReadGeometry>
-        <SkipToEvent>10</SkipToEvent>
+        <SkipToEvent>0</SkipToEvent>
     </algorithm>
 
     <!-- LAR TPC EVENT RECONSTRUCTION -->
