@@ -21,7 +21,8 @@ CreateAdditionalCaloHitsAlgorithm::CreateAdditionalCaloHitsAlgorithm() :
     m_nCaloHitsToMake(0),
     m_setCurrentListToInputList(false),
     m_worldSideLength(1000.f),
-    m_groupSideLength(10.f)
+    m_groupSideLength(10.f),
+    m_randomEngine(12345)
 {
 }
 
@@ -34,18 +35,19 @@ StatusCode CreateAdditionalCaloHitsAlgorithm::Run()
 
     // Here add complexity (mostly hidden-away in the ExampleCaloHitFactory) to add extra parameters to the base pandora calo hit
     ExampleCaloHitFactory exampleCaloHitFactory;
+    std::uniform_real_distribution<float> randomDistribution(0.f, 1.f);
 
     const CartesianVector centrePosition(
-        ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * m_worldSideLength,
-        ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * m_worldSideLength,
-        ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * m_worldSideLength);
+        (randomDistribution(m_randomEngine) - 0.5f) * m_worldSideLength,
+        (randomDistribution(m_randomEngine) - 0.5f) * m_worldSideLength,
+        (randomDistribution(m_randomEngine) - 0.5f) * m_worldSideLength);
 
     for (unsigned int iHit = 0; iHit < m_nCaloHitsToMake; ++iHit)
     {
         const CartesianVector localPosition(
-            ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * m_groupSideLength,
-            ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * m_groupSideLength,
-            ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * m_groupSideLength);
+            (randomDistribution(m_randomEngine) - 0.5f) * m_groupSideLength,
+            (randomDistribution(m_randomEngine) - 0.5f) * m_groupSideLength,
+            (randomDistribution(m_randomEngine) - 0.5f) * m_groupSideLength);
 
         // Mainly dummy parameters
         ExampleCaloHitParameters parameters;

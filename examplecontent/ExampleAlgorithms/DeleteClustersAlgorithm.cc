@@ -10,8 +10,6 @@
 
 #include "examplecontent/ExampleAlgorithms/DeleteClustersAlgorithm.h"
 
-#include "examplecontent/ExampleHelpers/ExampleHelper.h"
-
 using namespace pandora;
 
 namespace example_content
@@ -36,18 +34,17 @@ StatusCode DeleteClustersAlgorithm::Run()
     // Need to be very careful with cluster list iterators here, as we are deleting elements from the std::unordered_set owned by the manager.
     // If user chooses to iterate over that same list, must adhere to rule that iterators pointing at the deleted element will be invalidated.
 
-    // Here, iterate over an ordered copy of the cluster list
-    ClusterVector clusterVector(pClusterList->begin(), pClusterList->end());
-    std::sort(clusterVector.begin(), clusterVector.end(), ExampleHelper::ExampleClusterSort);
+    // Here, iterate over a local copy of the cluster list
+    const ClusterList localClusterList(*pClusterList);
 
-    for (const Cluster *const pClusterToDelete : clusterVector)
+    for (const Cluster *const pClusterToDelete : localClusterList)
     {
         if (++nClustersDeleted > m_nClustersToDelete)
             break;
 
         PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::Delete(*this, pClusterToDelete));
 
-        // pClusterToDelete is now a dangling pointer, which exists only in the local cluster vector - do not deference!
+        // pClusterToDelete is now a dangling pointer, which exists only in the local cluster list - do not deference!
     }
 
     return STATUS_CODE_SUCCESS;

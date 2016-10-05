@@ -10,8 +10,6 @@
 
 #include "examplecontent/ExampleAlgorithms/WriteTreeAlgorithm.h"
 
-#include "examplecontent/ExampleHelpers/ExampleHelper.h"
-
 using namespace pandora;
 
 namespace example_content
@@ -35,10 +33,7 @@ StatusCode WriteTreeAlgorithm::Run()
     int nClusters(0);
     FloatVector clusterEnergies;
 
-    ClusterVector clusterVector(pClusterList->begin(), pClusterList->end());
-    std::sort(clusterVector.begin(), clusterVector.end(), ExampleHelper::ExampleClusterSort);
-
-    for (const Cluster *const pCluster : clusterVector)
+    for (const Cluster *const pCluster : *pClusterList)
     {
         clusterEnergies.push_back(pCluster->GetHadronicEnergy());
         ++nClusters;

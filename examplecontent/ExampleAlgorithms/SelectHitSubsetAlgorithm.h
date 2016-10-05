@@ -10,6 +10,8 @@
 
 #include "Pandora/Algorithm.h"
 
+#include <random>
+
 namespace example_content
 {
 
@@ -37,8 +39,10 @@ private:
     pandora::StatusCode Run();
     pandora::StatusCode ReadSettings(const pandora::TiXmlHandle xmlHandle);
 
-    float           m_hitSelectionFraction;     ///< The fraction of the input hits to select
-    std::string     m_outputListName;           ///< The name under which to save the output pfo list
+    float                       m_hitSelectionFraction;     ///< The fraction of the input hits to select
+    std::string                 m_outputListName;           ///< The name under which to save the output pfo list
+
+    std::default_random_engine  m_randomEngine;             ///< The engine for random number generation
 };
 
 //------------------------------------------------------------------------------------------------------------------------------------------

@@ -37,19 +37,17 @@ StatusCode FragmentClustersAlgorithm::Run()
     // Need to be very careful with cluster list iterators here, as we are deleting elements from the std::unordered_set owned by the manager.
     // If user chooses to iterate over that same list, must adhere to rule that iterators pointing at the deleted element will be invalidated.
 
-    // Here, iterate over an ordered copy of the cluster list
-    ClusterVector clusterVector(pClusterList->begin(), pClusterList->end());
-    std::sort(clusterVector.begin(), clusterVector.end(), ExampleHelper::ExampleClusterSort);
+    // Here, iterate over a local copy of the cluster list
+    const ClusterList localClusterList(*pClusterList);
 
-    for (const Cluster *const pOriginalCluster : clusterVector)
+    for (const Cluster *const pOriginalCluster : localClusterList)
     {
         if (++nClustersFragmented > m_nClustersToFragment)
             break;
 
         // The fragmentation mechanism allows the original and new candidate clusters to exist concurrently, with the calo hit
         // availability monitoring functioning separately for the two different hit configuration options.
-        ClusterList originalClusterList;
-        originalClusterList.insert(pOriginalCluster);
+        const ClusterList originalClusterList(1, pOriginalCluster);
         std::string originalClustersListName, fragmentClustersListName;
         PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::InitializeFragmentation(*this, originalClusterList, originalClustersListName, fragmentClustersListName));
 
@@ -63,7 +61,7 @@ StatusCode FragmentClustersAlgorithm::Run()
         const std::string clusterListToSaveName(fragmentClustersListName), clusterListToDeleteName(originalClustersListName);
         PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::EndFragmentation(*this, clusterListToSaveName, clusterListToDeleteName));
 
-        // pOriginalCluster is now a dangling pointer, which exists only in the local cluster vector - do not deference!
+        // pOriginalCluster is now a dangling pointer, which exists only in the local cluster list - do not deference!
     }
 
     return STATUS_CODE_SUCCESS;
@@ -100,7 +98,7 @@ StatusCode FragmentClustersAlgorithm::PerformFragmentation() const
         {
             const Cluster *pCluster(nullptr);
             PandoraContentApi::Cluster::Parameters parameters;
-            parameters.m_caloHitList.insert(pCaloHit);
+            parameters.m_caloHitList.push_back(pCaloHit);
             PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::Cluster::Create(*this, parameters, pCluster));
         }
     }

@@ -39,10 +39,7 @@ StatusCode CreateClustersAlgorithm::Run()
 
     // Here we use the first hit in an ordered calo hit vector to seed a new clusters. Subsequent hits are then either added
     // to the closest seed cluster (provided it is within a specified maximum distance), or used to create an additional seed cluster.
-    CaloHitVector caloHitVector(pCaloHitList->begin(), pCaloHitList->end());
-    std::sort(caloHitVector.begin(), caloHitVector.end(), ExampleHelper::ExampleCaloHitSort);
-
-    for (const CaloHit *const pCaloHit : caloHitVector)
+    for (const CaloHit *const pCaloHit : *pCaloHitList)
     {
         // Once a calo hit has been added to a cluster, it is flagged as unavailable.
         if (!PandoraContentApi::IsAvailable(*this, pCaloHit))
@@ -57,7 +54,7 @@ StatusCode CreateClustersAlgorithm::Run()
         {
             const Cluster *pCluster(nullptr);
             PandoraContentApi::Cluster::Parameters parameters;
-            parameters.m_caloHitList.insert(pCaloHit);
+            parameters.m_caloHitList.push_back(pCaloHit);
             PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::Cluster::Create(*this, parameters, pCluster));
         }
     }
