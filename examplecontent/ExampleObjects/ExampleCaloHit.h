@@ -10,7 +10,8 @@
 
 #include "Objects/CaloHit.h"
 
-#include "Pandora/ObjectFactory.h"
+#include "Pandora/ObjectCreation.h"
+#include "Pandora/PandoraObjectFactories.h"
 
 #include "Persistency/BinaryFileReader.h"
 #include "Persistency/BinaryFileWriter.h"
@@ -22,7 +23,7 @@
 /**
  *  @brief  Example calo hit parameters - simply add an additional property to the pandora calo hit
  */
-class ExampleCaloHitParameters : public PandoraApi::CaloHit::Parameters
+class ExampleCaloHitParameters : public object_creation::CaloHit::Parameters
 {
 public:
     std::string     m_additionalProperty;       ///< The additional property string
@@ -33,7 +34,7 @@ public:
 /**
  *  @brief  Example calo hit class - simply add an additional property to the pandora calo hit
  */
-class ExampleCaloHit : public pandora::CaloHit
+class ExampleCaloHit : public object_creation::CaloHit::Object
 {
 public:
     /**
@@ -59,7 +60,7 @@ private:
 /**
  *  @brief  CaloHitFactory responsible for default calo hit creation
  */
-class ExampleCaloHitFactory : public pandora::ObjectFactory<PandoraApi::CaloHit::Parameters, pandora::CaloHit>
+class ExampleCaloHitFactory : public pandora::ObjectFactory<object_creation::CaloHit::Parameters, object_creation::CaloHit::Object>
 {
 public:
     /**
@@ -83,7 +84,7 @@ public:
      *  @param  pObject the address of the object to persist
      *  @param  fileWriter the file writer
      */
-    pandora::StatusCode Write(const pandora::CaloHit *const pObject, pandora::FileWriter &fileWriter) const;
+    pandora::StatusCode Write(const Object *const pObject, pandora::FileWriter &fileWriter) const;
 
     /**
      *  @brief  Create an object with the given parameters
@@ -91,14 +92,14 @@ public:
      *  @param  parameters the parameters to pass in constructor
      *  @param  pObject to receive the address of the object created
      */
-    pandora::StatusCode Create(const PandoraApi::CaloHit::Parameters &parameters, const pandora::CaloHit *&pObject) const;
+    pandora::StatusCode Create(const Parameters &parameters, const Object *&pObject) const;
 };
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------------------------------------------
 
 inline ExampleCaloHit::ExampleCaloHit(const ExampleCaloHitParameters &parameters) :
-    pandora::CaloHit(parameters),
+    object_creation::CaloHit::Object(parameters),
     m_additionalProperty(parameters.m_additionalProperty)
 {
 }
@@ -120,7 +121,7 @@ inline ExampleCaloHitFactory::Parameters *ExampleCaloHitFactory::NewParameters()
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-inline pandora::StatusCode ExampleCaloHitFactory::Create(const Parameters &parameters, const pandora::CaloHit *&pObject) const
+inline pandora::StatusCode ExampleCaloHitFactory::Create(const Parameters &parameters, const Object *&pObject) const
 {
     const ExampleCaloHitParameters &exampleCaloHitParameters(dynamic_cast<const ExampleCaloHitParameters&>(parameters));
     pObject = new ExampleCaloHit(exampleCaloHitParameters);
@@ -158,7 +159,7 @@ inline pandora::StatusCode ExampleCaloHitFactory::Read(Parameters &parameters, p
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-inline pandora::StatusCode ExampleCaloHitFactory::Write(const pandora::CaloHit *const pObject, pandora::FileWriter &fileWriter) const
+inline pandora::StatusCode ExampleCaloHitFactory::Write(const Object *const pObject, pandora::FileWriter &fileWriter) const
 {
     // ATTN: To receive this call-back must have already set file writer calo hit factory to this factory
     const ExampleCaloHit *const pExampleCaloHit(dynamic_cast<const ExampleCaloHit*>(pObject));
