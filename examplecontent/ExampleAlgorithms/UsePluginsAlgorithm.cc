@@ -26,7 +26,7 @@ StatusCode UsePluginsAlgorithm::Run()
     // Each plugin can have configurable parameters and must provide an implementation of an IsMatch(const Cluster *const) function.
     for (const Cluster *const pCluster : *pClusterList)
     {
-        if ((MU_MINUS == std::abs(pCluster->GetParticleIdFlag())) || this->GetPandora().GetPlugins()->GetParticleId()->IsMuon(pCluster))
+        if ((MU_MINUS == std::abs(pCluster->GetParticleId())) || this->GetPandora().GetPlugins()->GetParticleId()->IsMuon(pCluster))
         {
             // Placeholder
         }
