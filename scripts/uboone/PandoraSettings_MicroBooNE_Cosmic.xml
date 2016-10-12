@@ -283,10 +283,10 @@
         <OutputPfoListName>Particles3D</OutputPfoListName>
     </algorithm>
 
-    <!-- 2D cosmic-ray isolated hits -->  
-    <algorithm type = "LArIsolatedHitMerging">
+    <!-- 2D cosmic-ray isolated hits/clusters -->
+    <algorithm type = "LArIsolatedClusterMopUp">
         <PfoListNames>Particles3D DaughterParticles3D</PfoListNames>
-        <RemnantClusterListNames>ClustersU ClustersV ClustersW</RemnantClusterListNames>
+        <DaughterListNames>ClustersU ClustersV ClustersW</DaughterListNames>
         <ExcludePfosContainingTracks>false</ExcludePfosContainingTracks>
     </algorithm>
 
@@ -359,10 +359,33 @@
         <CaloHitListName>CaloHitList2D</CaloHitListName>
         <MCParticleListName>MCParticleList3D</MCParticleListName>
         <PfoListName>Particles3D</PfoListName>
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
         <NeutrinoInducedOnly>false</NeutrinoInducedOnly>
-        <PrintAllToScreen>true</PrintAllToScreen>
+        <PrintAllToScreen>false</PrintAllToScreen>
         <PrintMatchingToScreen>true</PrintMatchingToScreen>
         <VisualizeMatching>false</VisualizeMatching>
+        <VisualizeVertices>false</VisualizeVertices>
+        <VisualizeRemnants>false</VisualizeRemnants>
+        <VisualizeGaps>false</VisualizeGaps>
+        <MatchingMinPrimaryHits>15</MatchingMinPrimaryHits>
+        <MatchingMinSharedHits>5</MatchingMinSharedHits>
+        <WriteToTree>false</WriteToTree>
+        <OutputTree>Validation</OutputTree>
+        <OutputFile>Validation.root</OutputFile>
+    </algorithm>
+
+    <algorithm type = "LArEventValidation">
+        <CaloHitListName>CaloHitList2D</CaloHitListName>
+        <MCParticleListName>MCParticleList3D</MCParticleListName>
+        <PfoListName>Particles3D</PfoListName>
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
+        <NeutrinoInducedOnly>true</NeutrinoInducedOnly>
+        <PrintAllToScreen>false</PrintAllToScreen>
+        <PrintMatchingToScreen>true</PrintMatchingToScreen>
+        <VisualizeMatching>false</VisualizeMatching>
+        <VisualizeVertices>false</VisualizeVertices>
+        <VisualizeRemnants>false</VisualizeRemnants>
+        <VisualizeGaps>false</VisualizeGaps>
         <MatchingMinPrimaryHits>15</MatchingMinPrimaryHits>
         <MatchingMinSharedHits>5</MatchingMinSharedHits>
         <WriteToTree>false</WriteToTree>
@@ -378,9 +401,9 @@
         <ClusterListNames>Clusters3D DaughterClusters3D</ClusterListNames>
     </algorithm>
 
-    <algorithm type = "LArVisualMonitoring">
+    <!--algorithm type = "LArVisualMonitoring">
         <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
         <CaloHitListNames>CaloHitListU CaloHitListV CaloHitListW</CaloHitListNames>
         <ShowOnlyAvailable>true</ShowOnlyAvailable>
-    </algorithm>
+    </algorithm-->
 </pandora>
