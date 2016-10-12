@@ -56,8 +56,8 @@ private:
     pandora::StatusCode Run();
     pandora::StatusCode ReadSettings(const pandora::TiXmlHandle xmlHandle);
 
-    typedef std::vector<IExampleAlgorithmTool*> ExampleAlgorithmToolList;   ///< The algorithm tool list typedef
-    ExampleAlgorithmToolList    m_algorithmToolList;                        ///< The algorithm tool list
+    typedef std::vector<IExampleAlgorithmTool*> ExampleAlgorithmToolVector; ///< The algorithm tool vector typedef
+    ExampleAlgorithmToolVector  m_algorithmToolVector;                      ///< The algorithm tool vector
 
     unsigned int                m_anExampleUInt;                            ///< An example unsigned int member variable
     pandora::FloatVector        m_anExampleFloatVector;                     ///< An example float vector

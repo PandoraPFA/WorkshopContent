@@ -42,10 +42,7 @@ StatusCode CreateClustersDaughterAlgorithm::Run()
 
     // Here we use the first m_nClustersToMake hits in an ordered calo hit vector to seed new clusters. Subsequent hits are then
     // added to the closest seed cluster, based on a simple (rather than efficient) closest-hits calculation in the example helper.
-    CaloHitVector caloHitVector(pCaloHitList->begin(), pCaloHitList->end());
-    std::sort(caloHitVector.begin(), caloHitVector.end(), ExampleHelper::ExampleCaloHitSort);
-
-    for (const CaloHit *const pCaloHit : caloHitVector)
+    for (const CaloHit *const pCaloHit : *pCaloHitList)
     {
         // Once a calo hit has been added to a cluster, it is flagged as unavailable.
         if (!PandoraContentApi::IsAvailable(*this, pCaloHit))
@@ -60,7 +57,7 @@ StatusCode CreateClustersDaughterAlgorithm::Run()
         {
             const Cluster *pCluster(nullptr);
             PandoraContentApi::Cluster::Parameters parameters;
-            parameters.m_caloHitList.insert(pCaloHit);
+            parameters.m_caloHitList.push_back(pCaloHit);
             PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::Cluster::Create(*this, parameters, pCluster));
         }
     }

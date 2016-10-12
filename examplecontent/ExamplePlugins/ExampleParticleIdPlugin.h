@@ -25,6 +25,7 @@ public:
     ExampleParticleIdPlugin();
 
     bool IsMatch(const pandora::Cluster *const pCluster) const;
+    bool IsMatch(const pandora::ParticleFlowObject *const pPfo) const;
 
 private:
     pandora::StatusCode ReadSettings(const pandora::TiXmlHandle xmlHandle);

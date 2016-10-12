@@ -14,8 +14,8 @@
 #include "TApplication.h"
 #endif
 
-#include <cstdlib>
 #include <iostream>
+#include <random>
 #include <string>
 #include <unistd.h>
 
@@ -58,10 +58,11 @@ bool ParseCommandLine(int argc, char *argv[], Parameters &parameters);
  * 
  *  @param  pandora the relevant pandora instance
  *  @param  parameters the application parameters
+ *  @param  randomEngine for random number generation
  * 
  *  @return success
  */
-pandora::StatusCode GenerateExampleHits(const pandora::Pandora &pandora, const Parameters &parameters);
+pandora::StatusCode GenerateExampleHits(const pandora::Pandora &pandora, const Parameters &parameters, std::default_random_engine &randomEngine);
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -90,11 +91,11 @@ int main(int argc, char *argv[])
 
         // Process the events
         int nEvents(0);
-        std::srand(12345);
+        std::default_random_engine randomEngine(12345);
 
         while ((nEvents++ < parameters.m_nEventsToProcess) || (0 > parameters.m_nEventsToProcess))
         {
-            PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, GenerateExampleHits(*pPandora, parameters));
+            PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, GenerateExampleHits(*pPandora, parameters, randomEngine));
             PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::ProcessEvent(*pPandora));
             PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::Reset(*pPandora));
         }
@@ -156,21 +157,23 @@ bool ParseCommandLine(int argc, char *argv[], Parameters &parameters)
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
-pandora::StatusCode GenerateExampleHits(const pandora::Pandora &pandora, const Parameters &inputParameters)
+pandora::StatusCode GenerateExampleHits(const pandora::Pandora &pandora, const Parameters &inputParameters, std::default_random_engine &randomEngine)
 {
+    std::uniform_real_distribution<float> randomDistribution(0.f, 1.f);
+
     for (int iGroup = 0; iGroup < inputParameters.m_nHitGroupings; ++iGroup)
     {
         const pandora::CartesianVector groupCentre(
-            ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * inputParameters.m_worldSideLength,
-            ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * inputParameters.m_worldSideLength,
-            ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * inputParameters.m_worldSideLength);
+            (randomDistribution(randomEngine) - 0.5f) * inputParameters.m_worldSideLength,
+            (randomDistribution(randomEngine) - 0.5f) * inputParameters.m_worldSideLength,
+            (randomDistribution(randomEngine) - 0.5f) * inputParameters.m_worldSideLength);
 
         for (int iHit = 0; iHit < inputParameters.m_nHitsPerGroup; ++iHit)
         {
             const pandora::CartesianVector localPosition(
-                ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * inputParameters.m_groupSideLength,
-                ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * inputParameters.m_groupSideLength,
-                ((static_cast<float>(std::rand()) / static_cast<float>(RAND_MAX)) - 0.5f) * inputParameters.m_groupSideLength);
+                (randomDistribution(randomEngine) - 0.5f) * inputParameters.m_groupSideLength,
+                (randomDistribution(randomEngine) - 0.5f) * inputParameters.m_groupSideLength,
+                (randomDistribution(randomEngine) - 0.5f) * inputParameters.m_groupSideLength);
 
             // Mainly dummy parameters
             PandoraApi::CaloHit::Parameters parameters;

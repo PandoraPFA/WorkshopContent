@@ -10,8 +10,6 @@
 
 #include "examplecontent/ExampleAlgorithms/CreateVerticesAlgorithm.h"
 
-#include "examplecontent/ExampleHelpers/ExampleHelper.h"
-
 using namespace pandora;
 
 namespace example_content
@@ -29,10 +27,7 @@ StatusCode CreateVerticesAlgorithm::Run()
     std::string temporaryListName;
     PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::CreateTemporaryListAndSetCurrent(*this, pTemporaryList, temporaryListName));
 
-    ClusterVector clusterVector(pClusterList->begin(), pClusterList->end());
-    std::sort(clusterVector.begin(), clusterVector.end(), ExampleHelper::ExampleClusterSort);
-
-    for (const Cluster *const pCluster : clusterVector)
+    for (const Cluster *const pCluster : *pClusterList)
     {
         PandoraContentApi::Vertex::Parameters parameters;
         parameters.m_position = pCluster->GetCentroid(pCluster->GetInnerPseudoLayer());

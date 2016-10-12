@@ -135,10 +135,14 @@
         <CaloHitListName>NCaloHitList2D</CaloHitListName>
         <MCParticleListName>NMCParticleList3D</MCParticleListName>
         <PfoListName>NParentParticles3D</PfoListName>
+        <ClusterListNames>NClustersU NClustersV NClustersW</ClusterListNames>
         <NeutrinoInducedOnly>true</NeutrinoInducedOnly>
         <PrintAllToScreen>false</PrintAllToScreen>
         <PrintMatchingToScreen>true</PrintMatchingToScreen>
-        <VisualizeMatching>false</VisualizeMatching>
+        <VisualizeMatching>true</VisualizeMatching>
+        <VisualizeVertices>true</VisualizeVertices>
+        <VisualizeRemnants>true</VisualizeRemnants>
+        <VisualizeGaps>false</VisualizeGaps>
         <MatchingMinPrimaryHits>15</MatchingMinPrimaryHits>
         <MatchingMinSharedHits>5</MatchingMinSharedHits>
         <WriteToTree>false</WriteToTree>
@@ -146,11 +150,11 @@
         <OutputFile>Validation.root</OutputFile>
     </algorithm>
 
-    <algorithm type = "LArVisualMonitoring">
+    <!--algorithm type = "LArVisualMonitoring">
         <PfoListNames> NParentParticles3D</PfoListNames>
     </algorithm>
 
-    <algorithm type = "LArVisualMonitoring">
+    <!--algorithm type = "LArVisualMonitoring">
         <ClusterListNames> NClusters3D</ClusterListNames>
     </algorithm>
 
@@ -158,5 +162,5 @@
         <ClusterListNames>NClustersU NClustersV NClustersW</ClusterListNames>
         <CaloHitListNames>NCaloHitListU NCaloHitListV NCaloHitListW</CaloHitListNames>
         <ShowOnlyAvailable>true</ShowOnlyAvailable>
-    </algorithm>
+    </algorithm-->
 </pandora>

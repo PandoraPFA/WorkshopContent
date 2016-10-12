@@ -10,8 +10,6 @@
 
 #include "examplecontent/ExampleAlgorithms/DisplayListsAlgorithm.h"
 
-#include "examplecontent/ExampleHelpers/ExampleHelper.h"
-
 #include "examplecontent/ExampleObjects/ExampleCaloHit.h"
 
 using namespace pandora;
@@ -45,10 +43,7 @@ StatusCode DisplayListsAlgorithm::Run()
         std::cout << "---" << pCaloHitList->size() << " calo hits in current list " << std::endl;
 
         // Display additional properties for any example user-defined calo hits
-        CaloHitVector caloHitVector(pCaloHitList->begin(), pCaloHitList->end());
-        std::sort(caloHitVector.begin(), caloHitVector.end(), ExampleHelper::ExampleCaloHitSort);
-
-        for (const CaloHit *const pCaloHit : caloHitVector)
+        for (const CaloHit *const pCaloHit : *pCaloHitList)
         {
             const ExampleCaloHit *const pExampleCaloHit(dynamic_cast<const ExampleCaloHit*>(pCaloHit));
 

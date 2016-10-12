@@ -109,30 +109,19 @@
 
     <!-- 3D vertex reconstruction -->
     <algorithm type = "LArCandidateVertexCreation">
-        <InputClusterListNameU>ClustersU</InputClusterListNameU>
-        <InputClusterListNameV>ClustersV</InputClusterListNameV>
-        <InputClusterListNameW>ClustersW</InputClusterListNameW>
+        <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
         <OutputVertexListName>CandidateVertices</OutputVertexListName>
         <ReplaceCurrentVertexList>true</ReplaceCurrentVertexList>
     </algorithm>
-    <algorithm type = "LArVertexSelection">
-        <InputCaloHitListNameU>CaloHitListU</InputCaloHitListNameU>
-        <InputCaloHitListNameV>CaloHitListV</InputCaloHitListNameV>
-        <InputCaloHitListNameW>CaloHitListW</InputCaloHitListNameW>
+    <algorithm type = "LArEnergyKickVertexSelection">
+        <InputCaloHitListNames>CaloHitListU CaloHitListV CaloHitListW</InputCaloHitListNames>
+        <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
         <OutputVertexListName>NeutrinoVertices3D</OutputVertexListName>
         <ReplaceCurrentVertexList>true</ReplaceCurrentVertexList>
         <BeamMode>true</BeamMode>
     </algorithm>
     <algorithm type = "LArVertexSplitting">
-        <InputClusterList>ClustersU</InputClusterList>
-        <MinClusterLength>5.</MinClusterLength>
-    </algorithm>
-    <algorithm type = "LArVertexSplitting">
-        <InputClusterList>ClustersV</InputClusterList>
-        <MinClusterLength>5.</MinClusterLength>
-    </algorithm>
-    <algorithm type = "LArVertexSplitting">
-        <InputClusterList>ClustersW</InputClusterList>
+        <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
         <MinClusterLength>5.</MinClusterLength>
     </algorithm>
 
@@ -227,32 +216,28 @@
         <MinClusterLength>1.</MinClusterLength>
     </algorithm>
 
-    <!-- Consolidate pfos and mop-up remnants -->
-    <algorithm type = "LArVertexBasedPfoMerging">
+    <!-- Consolidate pfos and mop-up remnants, prior to 3d hit creation -->
+    <algorithm type = "LArVertexBasedPfoMopUp">
         <TrackPfoListName>TrackParticles3D</TrackPfoListName>
         <ShowerPfoListName>ShowerParticles3D</ShowerPfoListName>
         <DaughterListNames>ClustersU ClustersV ClustersW</DaughterListNames>
     </algorithm>
-    <algorithm type = "LArSplitShowerMerging">
+    <algorithm type = "LArShowerPfoMopUp">
         <TrackPfoListName>TrackParticles3D</TrackPfoListName>
         <ShowerPfoListName>ShowerParticles3D</ShowerPfoListName>
         <DaughterListNames>ClustersU ClustersV ClustersW</DaughterListNames>
     </algorithm>
-    <algorithm type = "LArBoundedClusterMerging">
+    <algorithm type = "LArBoundedClusterMopUp">
         <PfoListNames>ShowerParticles3D</PfoListNames>
-        <RemnantClusterListNames>ClustersU ClustersV ClustersW</RemnantClusterListNames>
+        <DaughterListNames>ClustersU ClustersV ClustersW</DaughterListNames>
     </algorithm>
-    <algorithm type = "LArConeBasedMerging">
+    <algorithm type = "LArConeClusterMopUp">
         <PfoListNames>ShowerParticles3D</PfoListNames>
-        <RemnantClusterListNames>ClustersU ClustersV ClustersW</RemnantClusterListNames>
+        <DaughterListNames>ClustersU ClustersV ClustersW</DaughterListNames>
     </algorithm>
-    <algorithm type = "LArProximityBasedMerging">
+    <algorithm type = "LArNearbyClusterMopUp">
         <PfoListNames>ShowerParticles3D</PfoListNames>
-        <RemnantClusterListNames>ClustersU ClustersV ClustersW</RemnantClusterListNames>
-    </algorithm>
-    <algorithm type = "LArIsolatedHitMerging">
-        <PfoListNames>ShowerParticles3D</PfoListNames>
-        <RemnantClusterListNames>ClustersU ClustersV ClustersW</RemnantClusterListNames>
+        <DaughterListNames>ClustersU ClustersV ClustersW</DaughterListNames>
     </algorithm>
 
     <!-- 3D hit reconstruction -->
@@ -279,6 +264,21 @@
             <tool type = "LArTwoViewShowerHits"/>
             <tool type = "LArDeltaRayShowerHits"/>
         </HitCreationTools>
+    </algorithm>
+
+    <!-- Consolidate pfos and mop-up remnants, post 3d hit creation -->
+    <algorithm type = "LArSlidingConePfoMopUp">
+        <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
+        <DaughterListNames>ClustersU ClustersV ClustersW TrackClusters3D ShowerClusters3D</DaughterListNames>
+    </algorithm>
+    <algorithm type = "LArSlidingConeClusterMopUp">
+        <InputPfoListNames>TrackParticles3D ShowerParticles3D</InputPfoListNames>
+        <DaughterListNames>ClustersU ClustersV ClustersW</DaughterListNames>
+    </algorithm>
+    <algorithm type = "LArIsolatedClusterMopUp">
+        <PfoListNames>TrackParticles3D ShowerParticles3D</PfoListNames>
+        <DaughterListNames>ClustersU ClustersV ClustersW</DaughterListNames>
+        <AddHitsAsIsolated>true</AddHitsAsIsolated>
     </algorithm>
 
     <!-- Construct neutrino and daughter pfo hierarchy -->
@@ -323,10 +323,14 @@
         <CaloHitListName>CaloHitList2D</CaloHitListName>
         <MCParticleListName>MCParticleList3D</MCParticleListName>
         <PfoListName>NeutrinoParticles3D</PfoListName>
+        <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
         <NeutrinoInducedOnly>true</NeutrinoInducedOnly>
         <PrintAllToScreen>true</PrintAllToScreen>
         <PrintMatchingToScreen>true</PrintMatchingToScreen>
-        <VisualizeMatching>false</VisualizeMatching>
+        <VisualizeMatching>true</VisualizeMatching>
+        <VisualizeVertices>true</VisualizeVertices>
+        <VisualizeRemnants>true</VisualizeRemnants>
+        <VisualizeGaps>false</VisualizeGaps>
         <MatchingMinPrimaryHits>15</MatchingMinPrimaryHits>
         <MatchingMinSharedHits>5</MatchingMinSharedHits>
         <WriteToTree>false</WriteToTree>
@@ -334,11 +338,11 @@
         <OutputFile>Validation.root</OutputFile>
     </algorithm>
 
-    <algorithm type = "LArVisualMonitoring">
+    <!--algorithm type = "LArVisualMonitoring">
         <PfoListNames>NeutrinoParticles3D</PfoListNames>
     </algorithm>
 
-    <algorithm type = "LArVisualMonitoring">
+    <!--algorithm type = "LArVisualMonitoring">
         <ClusterListNames>TrackClusters3D ShowerClusters3D</ClusterListNames>
     </algorithm>
 
@@ -346,5 +350,5 @@
         <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
         <CaloHitListNames>CaloHitListU CaloHitListV CaloHitListW</CaloHitListNames>
         <ShowOnlyAvailable>true</ShowOnlyAvailable>
-    </algorithm>
+    </algorithm-->
 </pandora>

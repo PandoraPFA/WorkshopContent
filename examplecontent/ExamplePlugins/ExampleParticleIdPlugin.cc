@@ -33,6 +33,16 @@ bool ExampleParticleIdPlugin::IsMatch(const Cluster *const /*pCluster*/) const
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
+bool ExampleParticleIdPlugin::IsMatch(const ParticleFlowObject *const /*pPfo*/) const
+{
+    // Require implementation for both a cluster and a pfo. Could choose to simply redirect pfo implementation to cluster implementation,
+    // provide completely different implementations for each, or raise an exception rather than provide an implementation for both.
+
+    return false;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
 StatusCode ExampleParticleIdPlugin::ReadSettings(const TiXmlHandle xmlHandle)
 {
     PANDORA_RETURN_RESULT_IF_AND_IF(STATUS_CODE_SUCCESS, STATUS_CODE_NOT_FOUND, !=, XmlHelper::ReadValue(xmlHandle,
