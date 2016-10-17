@@ -51,13 +51,13 @@ StatusCode MyTrackShowerIdAlgorithm::Run()
         {
             PandoraContentApi::Cluster::Metadata metadata;
             metadata.m_particleId = MU_MINUS;
-            PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::AlterMetadata(*this, pCluster, metadata));
+            PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::Cluster::AlterMetadata(*this, pCluster, metadata));
         }
         else
         {
             PandoraContentApi::Cluster::Metadata metadata;
             metadata.m_particleId = E_MINUS;
-            PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::AlterMetadata(*this, pCluster, metadata));
+            PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::Cluster::AlterMetadata(*this, pCluster, metadata));
         }
     }
     
@@ -91,7 +91,7 @@ bool MyTrackShowerIdAlgorithm::IsClearTrack(const Cluster *const pCluster) const
     }
     
     CaloHitList caloHitList;
-    pCluster->GetOrderedCaloHitList().GetCaloHitList(caloHitList);
+    pCluster->GetOrderedCaloHitList().FillCaloHitList(caloHitList);
     
     for (const CaloHit *const pCaloHit : caloHitList)
     {

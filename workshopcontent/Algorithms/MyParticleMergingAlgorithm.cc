@@ -41,9 +41,7 @@ StatusCode MyParticleMergingAlgorithm::Run()
                 const ParticleFlowObject *const pPfoToEnlarge(pPfo1);
                 const ParticleFlowObject *const pPfoToDelete(pPfo2);
                 
-                PfoList enlargePfoList, deletePfoList;
-                enlargePfoList.insert(pPfoToEnlarge); deletePfoList.insert(pPfoToDelete);
-                
+                const PfoList enlargePfoList(1, pPfoToEnlarge), deletePfoList(1, pPfoToDelete);
                 PandoraMonitoringApi::SetEveDisplayParameters(this->GetPandora(), false, DETECTOR_VIEW_XZ, -1.f, -1.f, 1.f);
                 PandoraMonitoringApi::VisualizeParticleFlowObjects(this->GetPandora(), &enlargePfoList, "PfoToEnlarge", BLUE);
                 PandoraMonitoringApi::VisualizeParticleFlowObjects(this->GetPandora(), &deletePfoList, "PfoToDelete", GREEN);
@@ -53,8 +51,7 @@ StatusCode MyParticleMergingAlgorithm::Run()
                 std::replace(sortedPfos.begin(), sortedPfos.end(), pPfoToDelete, static_cast<const ParticleFlowObject *>(nullptr));
                 this->MergeAndDeletePfos(pPfoToEnlarge, pPfoToDelete);
                 
-                PfoList mergedPfoList;
-                mergedPfoList.insert(pPfoToEnlarge);
+                const PfoList mergedPfoList(1, pPfoToEnlarge);
                 PandoraMonitoringApi::VisualizeParticleFlowObjects(this->GetPandora(), &mergedPfoList, "MergedPfo", RED);
                 PandoraMonitoringApi::ViewEvent(this->GetPandora());
             }
@@ -146,18 +143,18 @@ template <typename T>
 const std::string MyParticleMergingAlgorithm::GetListName(const T *const pT) const
 {
     std::string currentListName;
-    const std::MANAGED_CONTAINER<const T*> *pCurrentList(nullptr);
+    const MANAGED_CONTAINER<const T*> *pCurrentList(nullptr);
     (void) PandoraContentApi::GetCurrentList(*this, pCurrentList, currentListName);
-    
-    if (pCurrentList && (pCurrentList->count(pT)))
+
+    if (pCurrentList && (pCurrentList->end() != std::find(pCurrentList->begin(), pCurrentList->end(), pT)))
         return currentListName;
     
     for (const std::string &listName : m_daughterListNames)
     {
-        const std::MANAGED_CONTAINER<const T*> *pList(nullptr);
+        const MANAGED_CONTAINER<const T*> *pList(nullptr);
         (void) PandoraContentApi::GetList(*this, listName, pList);
         
-        if (pList && (pList->count(pT)))
+        if (pList && (pList->end() != std::find(pList->begin(), pList->end(), pT)))
             return listName;
     }
     

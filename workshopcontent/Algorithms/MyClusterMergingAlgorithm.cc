@@ -43,7 +43,7 @@ StatusCode MyClusterMergingAlgorithm::Run()
     ClusterVector sortedLongClusters;
     this->GetSortedLongClusters(pClusterList, sortedLongClusters);
 
-    ClusterList defunctClusters;
+    ClusterSet defunctClusters;
 
     for (const Cluster *const pParentCluster : sortedLongClusters)
     {

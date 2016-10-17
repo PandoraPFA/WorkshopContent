@@ -130,9 +130,9 @@ void MyParticleCreationAlgorithm::CreateParticle(const Cluster *const pClusterU,
     pfoParameters.m_energy = 0.f;
     pfoParameters.m_momentum = CartesianVector(0.f, 0.f, 0.f);
 
-    pfoParameters.m_clusterList.insert(pClusterU);
-    pfoParameters.m_clusterList.insert(pClusterV);
-    pfoParameters.m_clusterList.insert(pClusterW);
+    pfoParameters.m_clusterList.push_back(pClusterU);
+    pfoParameters.m_clusterList.push_back(pClusterV);
+    pfoParameters.m_clusterList.push_back(pClusterW);
     
     const ParticleFlowObject *pPfo(nullptr);
     PANDORA_THROW_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::ParticleFlowObject::Create(*this, pfoParameters, pPfo));

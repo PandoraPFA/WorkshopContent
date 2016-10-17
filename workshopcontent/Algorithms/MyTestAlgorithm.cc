@@ -48,7 +48,7 @@ StatusCode MyTestAlgorithm::Run()
         if (!pCluster || (pCluster->GetNCaloHits() >= m_nHitsPerCluster))
         {
             PandoraContentApi::Cluster::Parameters parameters;
-            parameters.m_caloHitList.insert(pCaloHit);
+            parameters.m_caloHitList.push_back(pCaloHit);
             PANDORA_RETURN_RESULT_IF(STATUS_CODE_SUCCESS, !=, PandoraContentApi::Cluster::Create(*this, parameters, pCluster));
         }
         else
