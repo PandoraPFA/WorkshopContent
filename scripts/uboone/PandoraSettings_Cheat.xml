@@ -40,7 +40,7 @@
         <CaloHitListNames>NCaloHitListW NCaloHitListU NCaloHitListV</CaloHitListNames>
         <MCParticleListNames>NMCParticleList3D</MCParticleListNames>
         <SuppressMCParticles>22:0.01 2112:1.0</SuppressMCParticles>
-        <ShowDetector>true</ShowDetector>
+        <ShowDetector>false</ShowDetector>
     </algorithm>
 
     <!-- 2D neutrino-induced event reconstruction, U View -->
@@ -83,6 +83,7 @@
     <algorithm type = "LArCheatingVertexCreation">
         <OutputVertexListName>NVertices</OutputVertexListName>
         <ReplaceCurrentVertexList>true</ReplaceCurrentVertexList>
+        <VertexXCorrection>0.495694</VertexXCorrection>
     </algorithm>
 
     <!-- 3D neutrino-induced event reconstruction -->
@@ -136,7 +137,9 @@
         <MCParticleListName>NMCParticleList3D</MCParticleListName>
         <PfoListName>NParentParticles3D</PfoListName>
         <ClusterListNames>NClustersU NClustersV NClustersW</ClusterListNames>
-        <NeutrinoInducedOnly>true</NeutrinoInducedOnly>
+        <IntegrateOverRecoNeutrinos>false</IntegrateOverRecoNeutrinos>
+        <UseRecoNeutrinosOnly>true</UseRecoNeutrinosOnly>
+        <UseTrueNeutrinosOnly>true</UseTrueNeutrinosOnly>
         <PrintAllToScreen>false</PrintAllToScreen>
         <PrintMatchingToScreen>true</PrintMatchingToScreen>
         <VisualizeMatching>true</VisualizeMatching>
@@ -150,15 +153,15 @@
         <OutputFile>Validation.root</OutputFile>
     </algorithm>
 
-    <!--algorithm type = "LArVisualMonitoring">
+    <algorithm type = "LArVisualMonitoring">
         <PfoListNames> NParentParticles3D</PfoListNames>
     </algorithm>
 
     <!--algorithm type = "LArVisualMonitoring">
         <ClusterListNames> NClusters3D</ClusterListNames>
-    </algorithm>
+    </algorithm-->
 
-    <algorithm type = "LArVisualMonitoring">
+    <!--algorithm type = "LArVisualMonitoring">
         <ClusterListNames>NClustersU NClustersV NClustersW</ClusterListNames>
         <CaloHitListNames>NCaloHitListU NCaloHitListV NCaloHitListW</CaloHitListNames>
         <ShowOnlyAvailable>true</ShowOnlyAvailable>
