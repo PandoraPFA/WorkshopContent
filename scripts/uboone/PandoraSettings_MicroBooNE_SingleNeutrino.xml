@@ -243,6 +243,7 @@
                 <InputClusterListNames>ClustersU ClustersV ClustersW</InputClusterListNames>
                 <OutputVertexListName>CandidateVertices</OutputVertexListName>
                 <ReplaceCurrentVertexList>true</ReplaceCurrentVertexList>
+                <EnableCrossingCandidates>true</EnableCrossingCandidates>
             </algorithm>
             <algorithm type = "LArEnergyKickVertexSelection">
                 <InputCaloHitListNames>CaloHitListU CaloHitListV CaloHitListW</InputCaloHitListNames>
@@ -343,7 +344,7 @@
     <algorithm type = "LArMCParticleMonitoring">
         <CaloHitListName>CaloHitList2D</CaloHitListName>
         <MCParticleListName>MCParticleList3D</MCParticleListName>
-        <NeutrinoInducedOnly>true</NeutrinoInducedOnly>
+        <UseTrueNeutrinosOnly>true</UseTrueNeutrinosOnly>
         <MinHitsForDisplay>0</MinHitsForDisplay>
     </algorithm>
 
@@ -352,7 +353,9 @@
         <MCParticleListName>MCParticleList3D</MCParticleListName>
         <PfoListName>AllNeutrinoParticles3D</PfoListName>
         <ClusterListNames>AllClustersU AllClustersV AllClustersW</ClusterListNames>
-        <NeutrinoInducedOnly>true</NeutrinoInducedOnly>
+        <IntegrateOverRecoNeutrinos>false</IntegrateOverRecoNeutrinos>
+        <UseRecoNeutrinosOnly>true</UseRecoNeutrinosOnly>
+        <UseTrueNeutrinosOnly>true</UseTrueNeutrinosOnly>
         <PrintAllToScreen>true</PrintAllToScreen>
         <PrintMatchingToScreen>true</PrintMatchingToScreen>
         <VisualizeMatching>true</VisualizeMatching>
@@ -366,15 +369,15 @@
         <OutputFile>Validation.root</OutputFile>
     </algorithm>
 
-    <!--algorithm type = "LArVisualMonitoring">
+    <algorithm type = "LArVisualMonitoring">
         <PfoListNames>AllNeutrinoParticles3D</PfoListNames>
     </algorithm>
 
     <!--algorithm type = "LArVisualMonitoring">
         <ClusterListNames>AllTrackClusters3D AllShowerClusters3D</ClusterListNames>
-    </algorithm>
+    </algorithm-->
 
-    <algorithm type = "LArVisualMonitoring">
+    <!--algorithm type = "LArVisualMonitoring">
         <ClusterListNames>AllClustersU AllClustersV AllClustersW</ClusterListNames>
         <CaloHitListNames>CaloHitListU CaloHitListV CaloHitListW</CaloHitListNames>
         <ShowOnlyAvailable>true</ShowOnlyAvailable>

@@ -38,7 +38,7 @@
         <CaloHitListNames>CaloHitListW CaloHitListU CaloHitListV</CaloHitListNames>
         <MCParticleListNames>MCParticleList3D</MCParticleListNames>
         <SuppressMCParticles>22:0.01 2112:1.0</SuppressMCParticles>
-        <ShowDetector>true</ShowDetector>
+        <ShowDetector>false</ShowDetector>
     </algorithm>
 
     <!-- 2D cosmic ray reconstruction, U View -->
@@ -135,6 +135,7 @@
             <tool type = "LArMissingTrackSegment"/>
             <tool type = "LArTrackSplitting"/>
             <tool type = "LArLongTracks"><MinMatchedFraction>0.75</MinMatchedFraction><MinXOverlapFraction>0.75</MinXOverlapFraction></tool>
+            <tool type = "LArTracksCrossingGaps"><MinMatchedFraction>0.75</MinMatchedFraction><MinXOverlapFraction>0.75</MinXOverlapFraction></tool>
             <tool type = "LArMissingTrack"/>
         </TrackTools>
     </algorithm>
@@ -360,7 +361,8 @@
         <MCParticleListName>MCParticleList3D</MCParticleListName>
         <PfoListName>Particles3D</PfoListName>
         <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
-        <NeutrinoInducedOnly>false</NeutrinoInducedOnly>
+        <UseRecoNeutrinosOnly>false</UseRecoNeutrinosOnly>
+        <UseTrueNeutrinosOnly>false</UseTrueNeutrinosOnly>
         <PrintAllToScreen>false</PrintAllToScreen>
         <PrintMatchingToScreen>true</PrintMatchingToScreen>
         <VisualizeMatching>false</VisualizeMatching>
@@ -379,8 +381,9 @@
         <MCParticleListName>MCParticleList3D</MCParticleListName>
         <PfoListName>Particles3D</PfoListName>
         <ClusterListNames>ClustersU ClustersV ClustersW</ClusterListNames>
-        <NeutrinoInducedOnly>true</NeutrinoInducedOnly>
-        <PrintAllToScreen>false</PrintAllToScreen>
+        <UseRecoNeutrinosOnly>false</UseRecoNeutrinosOnly>
+        <UseTrueNeutrinosOnly>true</UseTrueNeutrinosOnly>
+        <PrintAllToScreen>true</PrintAllToScreen>
         <PrintMatchingToScreen>true</PrintMatchingToScreen>
         <VisualizeMatching>false</VisualizeMatching>
         <VisualizeVertices>false</VisualizeVertices>
