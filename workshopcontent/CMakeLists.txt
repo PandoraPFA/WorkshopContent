@@ -23,7 +23,7 @@ include(PandoraCMakeSettings)
 include_directories(${PROJECT_SOURCE_DIR})
 
 find_package(PandoraSDK 03.00.00 REQUIRED)
-find_package(LArContent 03.00.00 REQUIRED)
+find_package(LArContent 03.01.01 REQUIRED)
 
 foreach(package PandoraSDK LArContent)
     if(${package}_FOUND)
