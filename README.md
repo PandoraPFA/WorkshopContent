@@ -1,5 +1,6 @@
 # WorkshopContent
 [![Build Status](https://travis-ci.org/PandoraPFA/WorkshopContent.svg?branch=master)](https://travis-ci.org/PandoraPFA/WorkshopContent)
+[![Coverity Scan Build Status](https://scan.coverity.com/projects/13058/badge.svg)](https://scan.coverity.com/projects/pandorapfa-workshopcontent)
 
 Example algorithms and tools for discussion at Pandora LAr TPC Workshop
 
