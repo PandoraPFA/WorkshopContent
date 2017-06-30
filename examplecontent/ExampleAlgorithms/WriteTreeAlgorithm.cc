@@ -17,8 +17,15 @@ namespace example_content
 
 WriteTreeAlgorithm::~WriteTreeAlgorithm()
 {
-    // Tree is written to file when the algorithm is deleted (i.e. when the parent Pandora instance is deleted)
-    PANDORA_MONITORING_API(SaveTree(this->GetPandora(), m_treeName, m_fileName, "UPDATE"));
+    try
+    {
+        // Tree is written to file when the algorithm is deleted (i.e. when the parent Pandora instance is deleted)
+        PANDORA_MONITORING_API(SaveTree(this->GetPandora(), m_treeName, m_fileName, "UPDATE"));
+    }
+    catch (const StatusCodeException &)
+    {
+        std::cout << "WriteTreeAlgorithm: Unable to write tree " << m_treeName << " to file " << m_fileName << std::endl;
+    }
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------
