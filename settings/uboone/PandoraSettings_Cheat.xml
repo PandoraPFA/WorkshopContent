@@ -11,10 +11,8 @@
 
     <!-- ALGORITHM SETTINGS -->
     <algorithm type = "LArEventReading">
-        <EventFileName>/path/to/events/.pndr/or/.xml</EventFileName>
-        <GeometryFileName>/path/to/geometry/.pndr/or/.xml</GeometryFileName>
-        <ShouldReadEvents>true</ShouldReadEvents>
-        <ShouldReadGeometry>true</ShouldReadGeometry>
+        <EventFileNameList>/path/to/events/.pndr/or/.xml</EventFileNameList>
+        <GeometryFileName>/path/to/events/.pndr/or/.xml</GeometryFileName>
         <SkipToEvent>0</SkipToEvent>
     </algorithm>
 
@@ -88,15 +86,10 @@
 
     <!-- 3D neutrino-induced event reconstruction -->
     <algorithm type = "LArCheatingPfoCreation">
-        <InputClusterListNameU>NClustersU</InputClusterListNameU>
-        <InputClusterListNameV>NClustersV</InputClusterListNameV>
-        <InputClusterListNameW>NClustersW</InputClusterListNameW>
+        <InputClusterListNames>NClustersU NClustersV NClustersW</InputClusterListNames>
         <OutputPfoListName>NParticles3D</OutputPfoListName>
-        <IdOffsetU>0</IdOffsetU>
-        <IdOffsetV>0</IdOffsetV>
-        <IdOffsetW>0</IdOffsetW>
         <CollapseToPrimaryMCParticles>true</CollapseToPrimaryMCParticles>
-        <MCParticle3DListName>NMCParticleList3D</MCParticle3DListName>
+        <MCParticleListName>NMCParticleList3D</MCParticleListName>
     </algorithm>
     <algorithm type = "LArThreeDHitCreation">
         <InputPfoListName>NParticles3D</InputPfoListName>
@@ -146,8 +139,6 @@
         <VisualizeVertices>true</VisualizeVertices>
         <VisualizeRemnants>true</VisualizeRemnants>
         <VisualizeGaps>false</VisualizeGaps>
-        <MatchingMinPrimaryHits>15</MatchingMinPrimaryHits>
-        <MatchingMinSharedHits>5</MatchingMinSharedHits>
         <WriteToTree>false</WriteToTree>
         <OutputTree>Validation</OutputTree>
         <OutputFile>Validation.root</OutputFile>
