@@ -11,8 +11,8 @@ project(WorkshopContent)
 
 # project version
 set(${PROJECT_NAME}_VERSION_MAJOR 02)
-set(${PROJECT_NAME}_VERSION_MINOR 01)
-set(${PROJECT_NAME}_VERSION_PATCH 02)
+set(${PROJECT_NAME}_VERSION_MINOR 02)
+set(${PROJECT_NAME}_VERSION_PATCH 00)
 set(${PROJECT_NAME}_VERSION "${${PROJECT_NAME}_VERSION_MAJOR}.${${PROJECT_NAME}_VERSION_MINOR}.${${PROJECT_NAME}_VERSION_PATCH}")
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
@@ -22,8 +22,8 @@ include(PandoraCMakeSettings)
 # Prefer local include directory to any paths to installed header files
 include_directories(${PROJECT_SOURCE_DIR})
 
-find_package(PandoraSDK 03.00.00 REQUIRED)
-find_package(LArContent 03.01.01 REQUIRED)
+find_package(PandoraSDK 03.01.00 REQUIRED)
+find_package(LArContent 03.08.00 REQUIRED)
 
 foreach(package PandoraSDK LArContent)
     if(${package}_FOUND)
