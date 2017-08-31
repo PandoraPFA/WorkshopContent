@@ -53,6 +53,15 @@ bool ParseCommandLine(int argc, char *argv[], Parameters &parameters);
 
 //------------------------------------------------------------------------------------------------------------------------------------------
 
+/**
+ *  @brief  Print the list of configurable options
+ *
+ *  @return false, to force abort
+ */
+bool PrintOptions();
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
 int main(int argc, char *argv[])
 {
     try
@@ -100,9 +109,12 @@ int main(int argc, char *argv[])
 
 bool ParseCommandLine(int argc, char *argv[], Parameters &parameters)
 {
+    if (1 == argc)
+        return PrintOptions();
+
     int c(0);
 
-    while ((c = getopt(argc, argv, "i:n:N?")) != -1)
+    while ((c = getopt(argc, argv, "i:n:Nh")) != -1)
     {
         switch (c)
         {
@@ -115,17 +127,25 @@ bool ParseCommandLine(int argc, char *argv[], Parameters &parameters)
         case 'N':
             parameters.m_shouldDisplayEventNumber = true;
             break;
-        case '?':
+        case 'h':
         default:
-            std::cout << std::endl << "PandoraWorkshop " << std::endl
-                      << "    -i PandoraSettings.xml (mandatory)" << std::endl
-                      << "    -n NEventsToProcess    (mandatory)" << std::endl
-                      << "    -N                     (optional, display event numbers)" << std::endl;
-             return false;
+            return PrintOptions();
         }
     }
 
     return true;
+}
+
+//------------------------------------------------------------------------------------------------------------------------------------------
+
+bool PrintOptions()
+{
+    std::cout << std::endl << "PandoraWorkshop " << std::endl
+              << "    -i PandoraSettings.xml (required)" << std::endl
+              << "    -n NEventsToProcess    (optional)" << std::endl
+              << "    -N                     (optional, display event numbers)" << std::endl << std::endl;
+
+     return false;
 }
 
 //------------------------------------------------------------------------------------------------------------------------------------------
