@@ -8,8 +8,6 @@
     <algorithm type = "LArEventReading">
         <EventFileNameList>/path/to/geometry/.pndr/or/.xml</EventFileNameList>
         <GeometryFileName>/path/to/geometry/.pndr/or/.xml</GeometryFileName>
-        <ShouldReadEvents>true</ShouldReadEvents>
-        <ShouldReadGeometry>true</ShouldReadGeometry>
         <SkipToEvent>0</SkipToEvent>
     </algorithm>
 
