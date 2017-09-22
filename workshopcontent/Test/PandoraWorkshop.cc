@@ -8,10 +8,9 @@
 
 #include "Api/PandoraApi.h"
 
-#include "workshopcontent/Plugins/MicroBooNEPseudoLayerPlugin.h"
-#include "workshopcontent/Plugins/MicroBooNETransformationPlugin.h"
-
 #include "larpandoracontent/LArContent.h"
+#include "larpandoracontent/LArPlugins/LArPseudoLayerPlugin.h"
+#include "larpandoracontent/LArPlugins/LArRotationalTransformationPlugin.h"
 
 #ifdef MONITORING
 #include "TApplication.h"
@@ -79,8 +78,8 @@ int main(int argc, char *argv[])
 
         PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, LArContent::RegisterAlgorithms(*pPandora));
         PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, LArContent::RegisterBasicPlugins(*pPandora));
-        PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, LArContent::SetLArPseudoLayerPlugin(*pPandora, new workshop_content::MicroBooNEPseudoLayerPlugin));
-        PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, LArContent::SetLArTransformationPlugin(*pPandora, new workshop_content::MicroBooNETransformationPlugin));
+        PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::SetPseudoLayerPlugin(*pPandora, new lar_content::LArPseudoLayerPlugin));
+        PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::SetLArTransformationPlugin(*pPandora, new lar_content::LArRotationalTransformationPlugin));
 
         PANDORA_THROW_RESULT_IF(pandora::STATUS_CODE_SUCCESS, !=, PandoraApi::ReadSettings(*pPandora, parameters.m_pandoraSettingsFile));
 
