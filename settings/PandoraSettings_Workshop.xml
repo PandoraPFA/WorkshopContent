@@ -9,22 +9,16 @@
         <EventFileNameList>/path/to/geometry/.pndr/or/.xml</EventFileNameList>
         <GeometryFileName>/path/to/geometry/.pndr/or/.xml</GeometryFileName>
         <SkipToEvent>0</SkipToEvent>
+        <UseLArCaloHits>false</UseLArCaloHits>
     </algorithm>
 
     <!-- LAR TPC EVENT RECONSTRUCTION -->
-    <algorithm type = "LArListPreparation">
-        <OnlyAvailableCaloHits>true</OnlyAvailableCaloHits>
-        <OutputCaloHitListNameW>CaloHitListW</OutputCaloHitListNameW>
+    <algorithm type = "LArPreProcessing">
         <OutputCaloHitListNameU>CaloHitListU</OutputCaloHitListNameU>
         <OutputCaloHitListNameV>CaloHitListV</OutputCaloHitListNameV>
+        <OutputCaloHitListNameW>CaloHitListW</OutputCaloHitListNameW>
         <FilteredCaloHitListName>CaloHitList2D</FilteredCaloHitListName>
-        <CurrentCaloHitListReplacement>CaloHitListW</CurrentCaloHitListReplacement>
-        <OutputMCParticleListNameU>MCParticleListU</OutputMCParticleListNameU>
-        <OutputMCParticleListNameV>MCParticleListV</OutputMCParticleListNameV>
-        <OutputMCParticleListNameW>MCParticleListW</OutputMCParticleListNameW>
-        <OutputMCParticleListName3D>MCParticleList3D</OutputMCParticleListName3D>
-        <CurrentMCParticleListReplacement>MCParticleListW</CurrentMCParticleListReplacement>
-        <MipEquivalentCut>0.</MipEquivalentCut>
+        <CurrentCaloHitListReplacement>CaloHitList2D</CurrentCaloHitListReplacement>
     </algorithm>
 
     <algorithm type = "LArVisualMonitoring">
