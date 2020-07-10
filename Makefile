@@ -7,11 +7,17 @@ ifndef PANDORA_DIR
     $(error PANDORA_DIR is not set)
 endif
 
+CFLAGS = -c -g -fPIC -O2 -Wall -Wextra -Werror -pedantic -Wno-long-long -Wno-sign-compare -Wshadow -fno-strict-aliasing -std=c++17
+ifdef BUILD_32BIT_COMPATIBLE
+    CFLAGS += -m32
+endif
+
+
 export
 
 all:
-	$(MAKE) -C ${PROJECT_DIR}/workshopcontent/
-	$(MAKE) -C ${PROJECT_DIR}/examplecontent/
+	$(MAKE) $(CFLAGS) -C ${PROJECT_DIR}/workshopcontent/
+	$(MAKE) $(CFLAGS) -C ${PROJECT_DIR}/examplecontent/
 
 clean:
 	$(MAKE) clean -C ${PROJECT_DIR}/workshopcontent/
